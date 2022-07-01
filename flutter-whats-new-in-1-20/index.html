@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Flutter: อัพเดทจัดเต็มกับ Flutter 1.20, Dart 2.9.0 และ Dart DevTools 0.9.0</title>
+<meta name="HandheldFriendly" content="True" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" href="/assets/css/app.css?v=0787077eaf" as="style" />
+<link rel="preload" href="/assets/js/manifest.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/vendor/content-api.min.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/vendor.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/app.js?v=0787077eaf" as="script" />
+<link rel="preconnect" href="https://polyfill.io">
+<link rel="dns-prefetch" href="https://polyfill.io">
+<link rel="preload" href="/assets/css/post.css?v=0787077eaf" as="style" />
+<link rel="preload" href="/assets/js/post.js?v=0787077eaf" as="script" />
+<style>
+      /* These font-faces are here to make fonts work if the Ghost instance is installed in a subdirectory */
+
+      /* source-sans-pro-regular */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('SourceSansPro-Regular'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-regular.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-regular.woff?v=0787077eaf") format('woff');
+      }
+
+      /* source-sans-pro-600 */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: local('SourceSansPro-SemiBold'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-600.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-600.woff?v=0787077eaf") format('woff');
+      }
+
+      /* source-sans-pro-700 */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: local('SourceSansPro-Bold'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-700.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-700.woff?v=0787077eaf") format('woff');
+      }
+
+      /* iconmoon */
+      @font-face {
+        font-family: 'icomoon';
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+        src: url("/assets/fonts/icomoon/icomoon.eot?101fc3?v=0787077eaf");
+        src: url("/assets/fonts/icomoon/icomoon.eot?101fc3?v=0787077eaf#iefix") format('embedded-opentype'),
+        url("/assets/fonts/icomoon/icomoon.ttf?101fc3?v=0787077eaf") format('truetype'),
+        url("/assets/fonts/icomoon/icomoon.woff?101fc3?v=0787077eaf") format('woff'),
+        url("/assets/fonts/icomoon/icomoon.svg?101fc3?v=0787077eaf#icomoon") format('svg');
+      }
+    </style>
+<link rel="stylesheet" type="text/css" href="/assets/css/app.css?v=0787077eaf" media="screen" />
+<link rel="stylesheet" type="text/css" href="/assets/css/post.css?v=0787077eaf" media="screen" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="canonical" href="https://petepittawat.dev/flutter-whats-new-in-1-20/" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+<link rel="amphtml" href="https://petepittawat.dev/flutter-whats-new-in-1-20/amp/" />
+<meta property="og:site_name" content="PETEPITTAWAT.DEV" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Flutter: อัพเดทจัดเต็มกับ Flutter 1.20, Dart 2.9.0 และ Dart DevTools 0.9.0" />
+<meta property="og:description" content="เมื่อวานนี้เอง (5/8/2020) ที่ทาง Flutter ได้ทำการปล่อยอัพเดทใหญ่ออกมาในชื่อ
+Flutter 1.20 ซึ่งถือว่าเป็นอัพเดทที่ใหญ่ที่สุดที่ Flutter เคยปล่อยออกมา
+โดยในเวอร์ชันนี้ยังมาพร้อมกับ Dart 2.9.0 และ Dart DevTools เวอร์ชันใหม่ 0.9." />
+<meta property="og:url" content="https://petepittawat.dev/flutter-whats-new-in-1-20/" />
+<meta property="og:image" content="https://petepittawat.dev/content/images/2020/08/PetePittawatTemplate.001-3.jpeg" />
+<meta property="article:published_time" content="2020-08-06T13:52:09.000Z" />
+<meta property="article:modified_time" content="2020-08-06T13:52:09.000Z" />
+<meta property="article:tag" content="Dart" />
+<meta property="article:tag" content="Flutter" />
+<meta property="article:tag" content="News" />
+<meta property="article:publisher" content="https://www.facebook.com/petepittawat.dev/" />
+<meta property="article:author" content="https://www.facebook.com/petepittawat.dev/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Flutter: อัพเดทจัดเต็มกับ Flutter 1.20, Dart 2.9.0 และ Dart DevTools 0.9.0" />
+<meta name="twitter:description" content="เมื่อวานนี้เอง (5/8/2020) ที่ทาง Flutter ได้ทำการปล่อยอัพเดทใหญ่ออกมาในชื่อ
+Flutter 1.20 ซึ่งถือว่าเป็นอัพเดทที่ใหญ่ที่สุดที่ Flutter เคยปล่อยออกมา
+โดยในเวอร์ชันนี้ยังมาพร้อมกับ Dart 2.9.0 และ Dart DevTools เวอร์ชันใหม่ 0.9." />
+<meta name="twitter:url" content="https://petepittawat.dev/flutter-whats-new-in-1-20/" />
+<meta name="twitter:image" content="https://petepittawat.dev/content/images/2020/08/PetePittawatTemplate.001-3.jpeg" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Pittawat Taveekitworachai" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="Dart, Flutter, News" />
+<meta property="og:image:width" content="1920" />
+<meta property="og:image:height" content="1080" />
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "PETEPITTAWAT.DEV",
+        "url": "https://petepittawat.dev/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Pittawat Taveekitworachai",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://petepittawat.dev/content/images/2020/05/38406520_1997472006995151_732443772536750080_o.jpg",
+            "width": 1163,
+            "height": 1163
+        },
+        "url": "https://petepittawat.dev/author/pittawat/",
+        "sameAs": [
+            "https://www.facebook.com/petepittawat.dev/"
+        ]
+    },
+    "headline": "Flutter: อัพเดทจัดเต็มกับ Flutter 1.20, Dart 2.9.0 และ Dart DevTools 0.9.0",
+    "url": "https://petepittawat.dev/flutter-whats-new-in-1-20/",
+    "datePublished": "2020-08-06T13:52:09.000Z",
+    "dateModified": "2020-08-06T13:52:09.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://petepittawat.dev/content/images/2020/08/PetePittawatTemplate.001-3.jpeg",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "Dart, Flutter, News",
+    "description": "เมื่อวานนี้เอง (5/8/2020) ที่ทาง Flutter ได้ทำการปล่อยอัพเดทใหญ่ออกมาในชื่อ\nFlutter 1.20 ซึ่งถือว่าเป็นอัพเดทที่ใหญ่ที่สุดที่ Flutter เคยปล่อยออกมา\nโดยในเวอร์ชันนี้ยังมาพร้อมกับ Dart 2.9.0 และ Dart DevTools เวอร์ชันใหม่ 0.9.0\nที่มากันแบบเต็ม ๆ รวมไปถึงการอัพเดท Plugin สำหรับ IDE ต่าง ๆ อีกด้วย\nรายละเอียดจะเป็นอย่างไรบ้างนั้น ไปติดตามกันเลย\n\n\n--------------------------------------------------------------------------------\n\nในทุก ๆ การอัพเดทของ Flutter จะเน้นเสมอใน 4 หัวข้อ\n\n * Fast - เพิ่มประสิทธ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://petepittawat.dev/"
+    }
+}
+    </script>
+<meta name="generator" content="Ghost 5.0" />
+<link rel="alternate" type="application/rss+xml" title="PETEPITTAWAT.DEV" href="https://petepittawat.dev/rss/" />
+<script defer src="/public/cards.min.js?v=0787077eaf" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=0787077eaf">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+<style>
+  pre[class*="language-"] {
+    margin: 0 0 1.5em !important;
+  }
+  code {
+    text-shadow: none !important;
+  }
+  .token.operator {
+    background: none !important;
+  }
+  :not(pre) > code[class*="language-"],
+  pre[class*="language-"] {
+    background: #20262E !important;
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70874868-4" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script type="ea5d4101c3ad086a2b4c6f15-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70874868-4');
+</script>
+<script data-ad-client="ca-pub-8039993497715876" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script type="ea5d4101c3ad086a2b4c6f15-text/javascript" defer>
+    window.addEventListener('DOMContentLoaded', (_) => {      
+        document.querySelectorAll('pre[class*=language-]').forEach(function(node) {
+            node.classList.add('line-numbers');
+		});
+        Prism.highlightAll();
+    });
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script type="ea5d4101c3ad086a2b4c6f15-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js" defer></script>
+<script type="ea5d4101c3ad086a2b4c6f15-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-dart.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-python.min.js" defer integrity="sha512-wK9tQmDrstGtZqTKcyVf3h457QGMlNriKs+fHmEkiCizrq0LVovfT3v1smeT1DlQetHhdRkkX1JSuZg5LoNHJg==" crossorigin="anonymous" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-django.min.js" defer integrity="sha512-zceTbktmadDMVN0NdIOgrT6pCS6ru9qBGn6SQBs/da9HDcCIvieqGmss8FmaKRWGapZdzFAiBX1Ju8ZHbnpPmg==" crossorigin="anonymous" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-css.min.js" defer integrity="sha512-1qYok2x2Rsm2y+mrdyrp00iH7xYSgVyIQ1egDAoT7CBZ3kSzlaJK+NhWAh746NeL3gnH6dnP8FGS+3xOdwO7ig==" crossorigin="anonymous" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-css-extras.min.js" defer integrity="sha512-JEJN8jMnX+Ryl2SPlM18/6TwaH5FnN+Mvasfnh3E7awC/JAVpuWOvc5rSMqCD7MM22x5PxQgRUr5h8G2zHceMQ==" crossorigin="anonymous" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-javascript.min.js" defer integrity="sha512-I4ZWqUpk7wqHcm7Gkv7k4IdgrDUTlGm1a7xeqyduqZLWeoGOn2E9us4XNBEDGclpk+6d1CmqIHYwmoyyL59zeA==" crossorigin="anonymous" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script type="ea5d4101c3ad086a2b4c6f15-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js" defer></script><style>:root {--ghost-accent-color: #15171A;}</style>
+<style>
+      :root {
+        --primary-subtle-color: var(--ghost-accent-color) !important;
+      }
+    </style>
+<script type="ea5d4101c3ad086a2b4c6f15-text/javascript">
+      // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+      const ghostHost = "https://petepittawat.dev"
+      // @license-end
+    </script>
+<script type="ea5d4101c3ad086a2b4c6f15-text/javascript">
+        const ghostSearchApiKey = "7c4c6f38cf1355e3f95df27069"
+      </script>
+</head>
+<body class="post-template tag-dart tag-flutter tag-news">
+<header class="m-header with-picture js-header">
+<div class="m-mobile-topbar" data-aos="fade-down">
+<button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
+<span class="icon-menu" aria-hidden="true"></span>
+</button>
+<a href="https://petepittawat.dev" class="m-logo in-mobile-topbar">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-light">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-dark.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-dark">
+</a>
+<button class="m-icon-button in-mobile-topbar js-open-search" aria-label="Open search">
+<span class="icon-search" aria-hidden="true"></span>
+</button>
+</div>
+<div class="m-menu js-menu">
+<button class="m-icon-button outlined as-close-menu js-close-menu" aria-label="Close menu">
+<span class="icon-close"></span>
+</button>
+<div class="m-menu__main" data-aos="fade-down">
+<div class="l-wrapper">
+<div class="m-nav js-main-nav">
+<nav class="m-nav__left js-main-nav-left" role="navigation" aria-label="Main menu">
+<ul>
+<li class="only-desktop">
+<a href="https://petepittawat.dev" class="m-logo">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-light">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-dark.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-dark">
+</a>
+</li>
+<li class="nav-home">
+<a href="https://petepittawat.dev/">Home</a>
+</li>
+<li class="nav-computer-science">
+<a href="https://petepittawat.dev/tag/computer-science/">Computer Science</a>
+</li>
+<li class="nav-dart">
+<a href="https://petepittawat.dev/tag/dart/">Dart</a>
+</li>
+<li class="nav-flutter">
+<a href="https://petepittawat.dev/tag/flutter/">Flutter</a>
+</li>
+<li class="nav-python">
+<a href="https://petepittawat.dev/tag/python/">Python</a>
+</li>
+<li class="nav-web">
+<a href="https://petepittawat.dev/tag/web/">Web</a>
+</li>
+<li class="nav-review">
+<a href="https://petepittawat.dev/tag/review/">Review</a>
+</li>
+<li class="nav-about">
+<a href="https://petepittawat.dev/about/">About</a>
+</li>
+<li class="submenu-option js-submenu-option">
+<button class="m-icon-button in-menu-main more js-toggle-submenu" aria-label="Open submenu">
+<span class="icon-more" aria-hidden="true"></span>
+</button>
+<div class="m-submenu js-submenu">
+<div class="l-wrapper in-submenu">
+<section class="m-recent-articles">
+<h3 class="m-submenu-title in-recent-articles">Recent articles</h3>
+<div class="glide js-recent-slider">
+<div class="glide__track" data-glide-el="track">
+<div class="glide__slides">
+<div class="glide__slide">
+<a href="/wisdom/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/07/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="ปัญญา">
+ปัญญา
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/future-of-flutter-may-2021/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/05/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="Flutter: วิเคราะห์อนาคตของ Flutter 2.2+">
+Flutter: วิเคราะห์อนาคตของ Flutter 2.2+
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/js-event-bubbling-capture/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/03/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="JS: Event Bubbling and Capture">
+JS: Event Bubbling and Capture
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/flutter-engage-2021-prediction/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/02/PetePittawatDevFullTemplate.001-1.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="คาดการณ์ Flutter Engage 2021">
+คาดการณ์ Flutter Engage 2021
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="m-tags">
+<h3 class="m-submenu-title">Tags</h3>
+<ul>
+<li>
+<a href="/tag/ai/">AI</a>
+</li>
+<li>
+<a href="/tag/books/">Books</a>
+</li>
+<li>
+<a href="/tag/computer-science/">Computer Science</a>
+</li>
+<li>
+<a href="/tag/dart/">Dart</a>
+</li>
+<li>
+<a href="/tag/data-science/">Data Science</a>
+</li>
+<li>
+<a href="/tag/flutter/">Flutter</a>
+</li>
+<li>
+<a href="/tag/general/">General</a>
+</li>
+<li>
+<a href="/tag/html/">HTML</a>
+</li>
+<li>
+<a href="/tag/javascript/">JavaScript</a>
+</li>
+<li>
+<a href="/tag/movie/">Movie</a>
+</li>
+</ul>
+</section>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+<div class="m-nav__right">
+<button class="m-icon-button in-menu-main js-open-search" aria-label="Open search">
+<span class="icon-search" aria-hidden="true"></span>
+</button>
+<div class="m-toggle-darkmode js-tooltip" data-tippy-content="Toggle dark mode" tabindex="0">
+<label for="toggle-darkmode" class="sr-only">
+Toggle dark mode
+</label>
+<input id="toggle-darkmode" type="checkbox" class="js-toggle-darkmode">
+<div>
+<span class="icon-moon moon" aria-hidden="true"></span>
+<span class="icon-sunny sun" aria-hidden="true"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="main-wrap">
+<section class="m-hero with-picture" data-aos="fade">
+<div class="m-hero__picture in-post">
+<img srcset="
+          /content/images/size/w300/2020/08/PetePittawatTemplate.001-3.jpeg 300w,
+          /content/images/size/w600/2020/08/PetePittawatTemplate.001-3.jpeg 600w,
+          /content/images/size/w1000/2020/08/PetePittawatTemplate.001-3.jpeg 1000w,
+          /content/images/size/w2000/2020/08/PetePittawatTemplate.001-3.jpeg 2000w
+        " sizes="(max-width: 600px) 600px, (max-width: 1000px) 1000px, 2000px" src="/content/images/size/w1000/2020/08/PetePittawatTemplate.001-3.jpeg" alt="" />
+</div>
+</section>
+<article>
+<div class="l-content in-post">
+<div class="l-wrapper in-post  js-aos-wrapper" data-aos="fade-up" data-aos-delay="300">
+<div class="l-post-content js-progress-content">
+<header class="m-heading">
+<h1 class="m-heading__title in-post">Flutter: อัพเดทจัดเต็มกับ Flutter 1.20, Dart 2.9.0 และ Dart DevTools 0.9.0</h1>
+<div class="m-heading__meta">
+<a href="https://petepittawat.dev/tag/dart/" class="m-heading__meta__tag">Dart</a>
+<span class="m-heading__meta__divider" aria-hidden="true">&bull;</span>
+<span class="m-heading__meta__time">Aug 6, 2020</span>
+</div>
+</header>
+<div class="pos-relative js-post-content">
+<div class="m-share">
+<div class="m-share__content js-sticky">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://petepittawat.dev/flutter-whats-new-in-1-20/" class="m-icon-button filled in-share" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+<a href="https://twitter.com/intent/tweet?text=Flutter%3A%20%E0%B8%AD%E0%B8%B1%E0%B8%9E%E0%B9%80%E0%B8%94%E0%B8%97%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%95%E0%B9%87%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%9A%20Flutter%201.20%2C%20Dart%202.9.0%20%E0%B9%81%E0%B8%A5%E0%B8%B0%20Dart%20DevTools%200.9.0&url=https://petepittawat.dev/flutter-whats-new-in-1-20/" class="m-icon-button filled in-share" target="_blank" rel="noopener" aria-label="Twitter">
+<span class="icon-twitter" aria-hidden="true"></span>
+</a>
+<button class="m-icon-button filled in-share progress js-scrolltop" aria-label="Scroll to top">
+<span class="icon-arrow-top" aria-hidden="true"></span>
+<svg aria-hidden="true">
+<circle class="progress-ring__circle js-progress" fill="transparent" r="0" />
+</svg>
+</button>
+</div>
+</div>
+<p>เมื่อวานนี้เอง (5/8/2020) ที่ทาง Flutter ได้ทำการปล่อยอัพเดทใหญ่ออกมาในชื่อ Flutter 1.20 ซึ่งถือว่าเป็นอัพเดทที่ใหญ่ที่สุดที่ Flutter เคยปล่อยออกมา โดยในเวอร์ชันนี้ยังมาพร้อมกับ Dart 2.9.0 และ Dart DevTools เวอร์ชันใหม่ 0.9.0 ที่มากันแบบเต็ม ๆ รวมไปถึงการอัพเดท Plugin สำหรับ IDE ต่าง ๆ อีกด้วย รายละเอียดจะเป็นอย่างไรบ้างนั้น ไปติดตามกันเลย</p><hr><p>ในทุก ๆ การอัพเดทของ Flutter จะเน้นเสมอใน 4 หัวข้อ</p><ul><li>Fast - เพิ่มประสิทธิภาพต่าง ๆ ตั้งแต่ระดับล่างสุดของ Rendering Engine ไปจนถึงการพยายามลดขนาดของ App Bundle</li><li>Beautiful - เพิ่ม Widget ใหม่ที่ตอบสนองกับทุกเคสที่เป็นไปได้ และปรับปรุงหน้าตาของ Widget โดยเฉพาะตระกูล Material ให้มีความทันสมัย และเป็นไปตาม Guideline อยู่เสมอ</li><li>Productive - Plugin ต่าง ๆ ที่ Flutter พัฒนาให้กับ IDE เจ้าดัง ๆ ทั้งหลายเพื่อเพิ่มประสิทธิภาพในการทำงานของ Flutter Developer ก็ได้รับการพัฒนาขึ้นไปอีกขั้น รวมไปถึงตัวของ Dart DevTools เครื่องมือคู่ใจของหลาย ๆ คนที่มาพร้อมกับ Flutter อีกด้วย</li><li>Open - Flutter ถูกขับเคลื่อนด้วย Community เสมอ ในเวอร์ชันนี้ก็เช่นกัน ที่มีการ Merge Pull Requests กว่า 3,029 PRs และปิด Issues ไปได้มากถึง 5,485 Issues</li></ul><p>สำหรับของใหม่ ๆ ที่มีการปรับปรุงใน Flutter 1.20 จะมีอะไรบ้างนั้นไปติดตามกันเลยดีกว่า</p><hr><h2 id="fast-performance-improvements">Fast - Performance Improvements</h2><p>หากใครที่เคยใช้งาน Flutter ในการพัฒนาแอปพลิเคชัน คงรู้กันดีถึงพลังของ Flutter ที่สามารถ Render ได้มากถึง 60 FPS หรือ 144 FPS หากหน้าจอนั้นรองรับ โดยที่ยังคงความสวยงาม และ Animation ต่าง ๆ เอาไว้ได้ โดยพื้นฐาน หรือหากมีปัญหาเกิดขึ้นก็มีเครื่องมือต่าง ๆ มาช่วยให้เราสามารถ Optimize ได้ง่าย</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="This is the first photo I am uploading to unsplash.com - I’ve been taking photos actively for the last 15 years, and despite having a vast collection of thousands of images from all parts of the world, I have never really sold any. I love the idea of sharing free images for those who cannot afford to pay for them. I also believe that those who can afford to pay for a photo, and appreciate the efforts of a photographer will be happy to compensate the photographer when they use one for commercial purposes. Here is a free image of a tree - if you use it, please follow my Instagram @niko.photos :)" loading="lazy" width="3741" height="2494" srcset="https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@niko_photos?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">niko photos</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Icon Font Tree Shaking</strong></p><p>โดยในเวอร์ชันนี้ Flutter ก็ได้พยายามปรับปรุงประสิทธิภาพเพิ่มขึ้นไปอีก ด้วยการนำ Icon Font Tree Shaking มาใช้เพื่อลดขนาดของแอปพลิเคชันลงด้วยการทำ Tree Shaking กับ Icon Font เพื่อลบไอคอนที่ไม่ได้ใช้งานในแอปพลิเคชันออกไป ส่งผลให้ App Bundle มีขนาดลดลง โดย Flutter ได้ทดสอบคร่าว ๆ ว่าลดไปได้ถึง 100kb สำหรับแอพตัวอย่างของ Flutter ที่ชื่อว่า <a href="https://gallery.flutter.dev/#/">Gallery</a></p><p>โดยฟีเจอร์นี้นั้นจะถูกเปิดการใช้งานโดยปกติ นั่นหมายความว่าหากเรา Build Flutter App ด้วย Flutter 1.20 เราสามารถคาดหวังขนาดของ Application ที่ลดลงได้โดยไม่ต้องทำอะไรเลยนั่นเอง โดยตอนนี้ฟีเจอร์นี้ยังมีข้อจำกัดอยู่ที่ยังรองรับแค่ฟอนต์แบบ TrueType (.ttf) เท่านั้น โดยฟอนต์แบบอื่น ๆ จะได้รับการรองรับในอนาคต</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1530021595331-3fd4e9ae2115?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt loading="lazy" width="2755" height="4125" srcset="https://images.unsplash.com/photo-1530021595331-3fd4e9ae2115?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1530021595331-3fd4e9ae2115?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1530021595331-3fd4e9ae2115?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1530021595331-3fd4e9ae2115?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@matthewlejune?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Matthew LeJune</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Warm-up phase</strong></p><p>ถึงแม้ว่าประสิทธิภาพของ Flutter จะดีเพียงใด แต่หลายครั้งโดยเฉพาะเวลาที่เราใช้งาน Animation เรามักพบกับสิ่งที่เรียกว่า Jank หรืออาการที่เฟรม ๆ หนึ่งใช้เวลาในการ Render นานเกินไปทำให้เมื่อ Render ทำให้ Skip Frame นั้นไป</p><p>โดยในเวอร์ชันนี้ Flutter ก็ได้เสนอวิธีในการแก้ปัญหากรณีที่เกิด Jank สำหรับ Animation ที่รันครั้งแรก ด้วยการให้ Skia ซึ่งเป็น Rendering Engine เข้ามาช่วยผ่าน Skia Shading Language ในการสร้าง Pre-compliation เป็นส่วนหนึ่งของการ Build Application ซึ่งจาการทดสอบก็สามารถช่วยเพิ่มประสิทธิภาพได้มากถึง 2 เท่าด้วยกัน</p><p>สำหรับวิธีนี้นั้นค่อนข้างจะ Advance และมี Use-case ที่ค่อนข้างจำเพาะเจาะจง นั่นคืออาการ Jank เฉพาะเมื่อ Animation รันครั้งแรก และ Smooth ตามปกติในครั้งถัด ๆ ไป อาการนี้มักเกิดจาก Shader Compilation นั่นเอง ซึ่งคำว่า Warm-up ในที่นี้หมายถึงการ Pre-compile ซึ่งสามารถเข้ามาช่วยเรื่องการ Compile ไม่ทันได้นั่นเอ</p><p>โดยผู้ที่สนใจสามารถศึกษารายละเอียดเพิ่มเติมได้ที่ <a href="https://flutter.dev/docs/perf/rendering/shader">Reduce shader compilation jank on mobile</a></p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1581574919402-5b7d733224d6?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="focus on the target" loading="lazy" width="5168" height="3448" srcset="https://images.unsplash.com/photo-1581574919402-5b7d733224d6?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1581574919402-5b7d733224d6?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1581574919402-5b7d733224d6?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1581574919402-5b7d733224d6?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@enginakyurt?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">engin akyurt</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Refined Mouse Hit Testing System</strong></p><p>สำหรับการปรับปรุงในแง่ของประสิทธิภาพอันสุดท้ายในเวอร์ชันนี้ ค่อนข้างจะเกี่ยวข้องกับ Flutter for Desktop, Flutter for Web นั่นก็คือการปรับปรุงการวิเคราะห์ Hit Testing (ทดสอบว่า Mouse กดโดนอะไรบนหน้าจอ)</p><p>โดยผลจาการทดสอบพบว่าสามารถเพิ่มประสิทธิภาพสำหรับเว็บในชุดการทดสอบได้มากถึง 15 เท่า ซึ่งนอกจากประสิทธิภาพที่ดียิ่งขึ้นแล้ว ยังมีความแม่นยำ (Accuracy) เพิ่มขึ้นอีกด้วย</p><p>สำหรับของแถมที่ได้มากับประสิทธิภาพและความแม่นยำที่เพิ่มมากยิ่งขึ้นก็คือก็สนับสนุน Mouse Cursor นั่นเอง โดยในตอนนี้ Widget ต่าง ๆ จะสนับสนุน Cursor แบบต่าง ๆ แล้ว เช่น เมื่อนำ Mouse ไป Hover ที่ Form Field ก็จะเป็นตัว I หรือเมื่อนำ Mouse ไป Hover ที่ปุ่มก็จะเป็นรูปนิ้วชี้ ซึ่งเราสามารถกำหนดให้เป็นรูปแบบต่าง ๆ ที่มีได้เช่นกัน</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1579019163248-e7761241d85a?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="close up bullseye on a dart board!
+
+Instagram: @VisualsByRoyalZ | @RoyalZProduction" loading="lazy" width="6000" height="4000" srcset="https://images.unsplash.com/photo-1579019163248-e7761241d85a?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1579019163248-e7761241d85a?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1579019163248-e7761241d85a?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1579019163248-e7761241d85a?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@visualsbyroyalz?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Anastase Maragos</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Dart 2.9</strong></p><p>ในเวอร์ชันนี้ยังมาพร้อมกับ Dart 2.9 ซึ่งช่วยให้ประสิทธิภาพดียิ่งขึ้นอีกด้วย โดยจะกล่าวในรายละเอียดต่อไปในบทความ</p><hr><h2 id="beautiful-autofill-new-widgets-updated-widgets">Beautiful - Autofill, New Widgets, Updated Widgets</h2><p>สำหรับความสวยงามก็คงหนีไม่พ้นเรื่องของ Widget ต่าง ๆ ซึ่งในเวอร์ชันนี้ไม่เพียงแต่ Widget ต่าง ๆ มีรูปร่างหน้าตาที่สวยงาม ทันสมัย และมีพฤติกรรมที่เหมาะสมมากยิ่งขึ้น โดยเฉพาะ Widget ตระกูล Material ที่มีการปรับปรุงให้ Widget เป็นไปตาม Guideline อยู่เสมอ</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1563207153-f403bf289096?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt loading="lazy" width="5000" height="3333" srcset="https://images.unsplash.com/photo-1563207153-f403bf289096?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1563207153-f403bf289096?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1563207153-f403bf289096?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1563207153-f403bf289096?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@lenin33?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Lenin Estrada</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Autofill</strong></p><p>ปฏิเสธไม่ได้ว่าในปัจจุบันเราพึ่งพา Autofill กันอย่างมากมายมหาศาล แต่ Flutter ก็ยังไม่เคย Support สักที จนกระทั่งเวอร์ชันนี้ที่ Autofill ได้มาถึงแล้วทั้ง iOS และ Android โดย Text Autofill ที่ใช้กับ Form Field จะสามารถทำได้ตามที่ตั้งใจไว้ ซึ่งจะช่วยให้ผู้ใช้ไม่ต้องกรอกข้อมูลซ้ำ ๆ เองบ่อย ๆ</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1528819622765-d6bcf132f793?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="Chess" loading="lazy" width="6000" height="4000" srcset="https://images.unsplash.com/photo-1528819622765-d6bcf132f793?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1528819622765-d6bcf132f793?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1528819622765-d6bcf132f793?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1528819622765-d6bcf132f793?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@felix_mittermeier?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Felix Mittermeier</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>InteractiveViewer</strong></p><p>หลายครั้งที่เราต้องการ Interactive Area ใน Application ที่รองรับการ Pan, Zoom, Drag &amp; Drop ตอนนี้เรามี Widget ที่ทำอย่างนั้นได้แล้วด้วย <code>InteractiveViewer</code>  โดยเฉพาะการ Drag &amp; Drop ที่ตอนนี้เราสามารถได้ข้อมูลถึงตำแหน่งของ Widget ที่ถูก Drop ลงไปได้อีกด้วย ซึ่งปกติเราจะต้องเช้าถึงข้อมูลนี้จาก <code>Draggable</code> แต่ตอนนี้เราสามารถเข้าถึงจาก <code>DragTarget</code> ได้แล้วผ่าน <code>onAcceptDetails</code> สำหรับผู้ที่สนใจรายละเอียดเพิ่มเติมสามารถอ่านได้ <a href="https://api.flutter.dev/flutter/widgets/InteractiveViewer-class.html">InteractiveViewer</a></p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://petepittawat.dev/content/images/2020/08/image-1.png" class="kg-image" alt loading="lazy" width="720" height="720" srcset="https://petepittawat.dev/content/images/size/w600/2020/08/image-1.png 600w, https://petepittawat.dev/content/images/2020/08/image-1.png 720w" sizes="(min-width: 720px) 720px"><figcaption>Image From: https://flutter.dev/docs/reference/widgets</figcaption></figure><p><strong>Updated Material Widgets: <code>Slider</code>, <code>RangeSlider</code>, <code>TimePicker</code>, <code>DatePicker</code></strong></p><p>โดย Widgets ต่าง ๆ ที่อัพเดทเหล่านี้จะมีหน้าตา/พฤติกรรมที่สอดคล้องกับ Material Guideline เวอร์ชันล่าสุดมากยิ่งขึ้น รวมถึงมีการปรับปรุงต่าง ๆ เพื่อทำให้ใช้งานได้ครอบคลุมมากยิ่งขึ้นอีกด้วย</p><p><a href="https://api.flutter.dev/flutter/material/Slider-class.html">Slider</a>, <a href="https://api.flutter.dev/flutter/material/RangeSlider-class.html">RangeSlider</a> , <a href="https://api.flutter.dev/flutter/material/showTimePicker.html">TimePicker</a>, <a href="https://api.flutter.dev/flutter/material/showDatePicker.html">DatePicker</a></p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1512149673953-1e251807ec7c?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="Android Phone" loading="lazy" width="6000" height="4000" srcset="https://images.unsplash.com/photo-1512149673953-1e251807ec7c?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1512149673953-1e251807ec7c?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1512149673953-1e251807ec7c?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1512149673953-1e251807ec7c?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@pathum_danthanarayana?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Pathum Danthanarayana</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Responsive <code>AboutDialog</code></strong></p><p>นอกจากนี้ยังมีการปรับปรุง <code>AboutDialog</code> ซึ่งเรามักใช้สำหรับโชว์ License ต่าง ๆ โดยเฉพาะ License ของ Package/Plugin ซึ่งตอนนี้จะมีหน้าตาที่ตาม Material Guideline มากยิ่งขึ้น รวมทั้งยังทำงานได้บนทุกอุปกรณ์ในรูปแบบที่สวยงาม และใช้งานง่ายได้อีกด้วย</p><p><a href="https://api.flutter.dev/flutter/material/AboutDialog-class.html">AboutDialog</a></p><hr><h2 id="productive-improved-devtools-safer-platform-channel-updated-ide-plugins">Productive - Improved DevTools, Safer Platform Channel, Updated IDE Plugins</h2><p>สำหรับในหมวด Productive ก็จะโฟกัสหลัก ๆ กันไปที่ DevTools และ Plugin สำหรับ IDE ต่าง ๆ แต่เราจะมาเริ่มกันด้วยความเปลี่ยนแปลงสำหรับ Package/Plugin Creator</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="JavaScript in progress" loading="lazy" width="6000" height="4000" srcset="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@clemhlrdt?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Clément H</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>ฟอร์แมตของ <code>pubspec.yaml</code>  แบบใหม่ ตอนนี้จำเป็นต่อการ Publish Package/Plugin ขึ้น pub.dev</strong></p><p>หลังจากที่ Flutter ประกาศปรับฟอร์แมตของ <code>pubspec.yaml</code> มาได้สักพักใหญ่ (มาก)​ แล้วตอนนี้ก็ไม่รองรับฟอร์แมตแบบเดิมอีกต่อไป ในมุมมองส่วนตัวมองว่าสำหรับคนที่พึ่งเริ่มเขียน Package/Plugin ใหม่นั้นไม่ได้รับผลกระทบมากนัก เนื่องจากตัว <code>flutter create</code> ได้ใช้ฟอร์แมตแบบใหม่มาสักพักใหญ่แล้ว</p><p>ในเรื่องนี้จะกระทบกับผู้ที่เขียนใช้งาน Flutter ตอนออกใหม่ ๆ และได้ทำ Package/Plugin ทิ้งไว้ โดยไม่ได้ปรับฟอร์แมต จะส่งผลให้ไม่สามารถ Publish Package/Plugin เวอร์ชันใหม่ได้หากไม่ปรับฟอร์แมตของ <code>pubspec.yaml</code> เสียก่อน</p><p>สำหรับผู้ใช้ Package/Plugin ก็ไม่ต้องเป็นกังวลไปเพราะ pub.dev จะยังคงสนับสนุน Package/Plugin ที่ใช้ฟอร์แมตเก่าและยังคงค้าอยู่บนเว็บต่อไปโดยไม่ได้อัพเดทฟอร์แมตต่อไปช่วงนี้</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1495522284885-41b9fc716455?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="“How wonderful it is to be able to write someone a letter! To feel like conveying your thoughts to a person, to sit at your desk and pick up a pen, to put your thoughts into words like this is truly marvelous.” 
+― Haruki Murakami, Norwegian Wood" loading="lazy" width="4928" height="3280" srcset="https://images.unsplash.com/photo-1495522284885-41b9fc716455?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1495522284885-41b9fc716455?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1495522284885-41b9fc716455?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1495522284885-41b9fc716455?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@anniespratt?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Annie Spratt</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Typesafe Platform Channels</strong></p><p>ยังคงอยู่กับเรื่องของ Package/Plugin เนื่องด้วยในปัจจุบันเราเห็น Plugin (Package ที่มีการใช้งาน Native Feature) เพิ่มขึ้นเป็นจำนวนมาก Flutter จะได้ทำการปล่อยโปรเจค Pigeon ออกมา โดย Pigeon เป็น Tools ที่ใช้สำหรับการอ่าน Syntax ของ Dart และ Generate Messaging Code ที่ใช้สำหรับติดต่อกับ Native ได้โดยที่เราไม่ต้องทำอะไรและการันตีความปลอดถัยให้อีกด้วย</p><p>อย่างไรก็ตาม Pigeon ยังคงอยู่ในช่วง Pre-release เท่านั้น ดังนั้นอาจจะมี Breaking changes ได้ แต่ในแง่ของความ Stable แล้ว ต้องบอกว่าใช้ได้เลยทีเดียว เพราะทีมของ Flutter เองก็ได้ทดลองใช้ใน Plugin เช่น <code>video_player</code> แล้ว</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1568952433726-3896e3881c65?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt loading="lazy" width="4308" height="2875" srcset="https://images.unsplash.com/photo-1568952433726-3896e3881c65?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1568952433726-3896e3881c65?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1568952433726-3896e3881c65?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1568952433726-3896e3881c65?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@robynnexy?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Robynne Hu</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>DevTools - Welcome Network Tracking</strong></p><p>สิ่งที่เพิ่มเข้ามาใน DevTools ที่น่าสนใจก็คือเรื่องของ Network Tracking ที่จะช่วยให้เราสามารถเรียกใช้งาน Web Socket Profiling ทำให้ตอนนี้ DevTools สามารถโชว์รายละเอียดของ Request/Response ไม่ว่าจะเป็น HTTP หรือ WebSocket ได้แล้ว นอกจากนี้ยังสามารถ Monitor gRPC Traffic ได้อีกด้วย สำหรับรายละเอียดแบบเต็ม ๆ ของ DevTools จะกล่าวถึงอีกครั้งในบทความนี้</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1518085250887-2f903c200fee?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="Some Variables" loading="lazy" width="6000" height="4000" srcset="https://images.unsplash.com/photo-1518085250887-2f903c200fee?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1518085250887-2f903c200fee?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1518085250887-2f903c200fee?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1518085250887-2f903c200fee?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@pankajpatel?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Pankaj Patel</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Visual Studio Code - Embedded Dart DevTools + Smarter than before</strong></p><p>สำหรับคนที่ใช้ Visual Studio Code ในการพัฒนา Flutter ก็อาจจะยิ้มออกได้แล้วเสียที เนื่องจากตอนนี้ Flutter ได้ทำการพัฒนาในส่วนของการ Embedded Dart DevTools เข้าไปใน VS Code โดยตรง แต่อย่างไรก็ตามในส่วนนี้นั้นยังคงเป็น Preview อยู่ โดยผู้ที่สนใจสามารถ Enable ได้ โดยการเพิ่มบรรทัดนี้เข้าไปยัง <code>settings.json</code> ของ VS Code</p><pre><code>dart.previewEmbeddedDevTools</code></pre><p>หากใช้งานแล้วเจอบัคอย่างไรก็อย่าลืม File Issues กันด้วย เพื่อให้ Extension ดียิ่ง ๆ ขึ้นไปอีก</p><p>นอกเหนือไปจากการ Embedded DevTools เข้ามาใน VS Code โดยตรงแล้ว Flutter ยังได้เพิ่มความสามารถใหม่ที่หลายคนรอคอยมานาน เพราะ IDE อื่น ๆ ก็ทำได้ด้วยตัวของมันเองอยู่แล้ว นั่นก็คือการอัพเดท Path ของ Imported Files โดยอัตโนมัตินั่นเอง ถือว่าเป็นอีกหนึ่งฟีเจอร์ที่มีประโยชน์ และช่วยเซฟเวลาได้เป็นอย่าดี หมดสิ้นแล้วกับคืนวันที่ย้ายไฟล์เข้าโฟลเดอร์แล้วต้องไล่อัพเดท Path แต่อัพเดทไม่ครบแล้วต้องมาไล่อีกที</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt loading="lazy" width="5000" height="3313" srcset="https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@yancymin?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Yancy Min</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p><strong>Tooling Metadata</strong></p><p>สำหรับสิ่งนี้หลาย ๆ คนอาจจะไม่ได้ใช้ประโยชน์โดยตรง เพราะตอนนี้ Flutter ได้เพิ่ม Tooling Metadata ต่าง ๆ สำหรับคนที่ต้องการสร้าง Tools ขึ้นมาใช้งานร่วมกับ Flutter โดยประกอบไปด้วย</p><ul><li>Catalog ของ Flutter Widgets ทั้งหมด (ปัจจุบัน Flutter มี Widget ทั้งสิ้น 395 Widgets!)</li><li>Flutter Color Names คู่กับ Color Values สำหรับการแสดงพรีวิวสีต่าง ๆ</li><li>Icon Metadata สำหรับการแสดงพรีวิวไอคอน</li></ul><hr><h2 id="flutter-1-20-breaking-changes">Flutter 1.20 - Breaking Changes</h2><p>หนึ่งในความตั้งใจของ Flutter คือการพยายามรักษา Breaking Changes ให้ต่ำไว้ เพื่อให้นักพัฒนามีงานน้อยที่สุดเมื่อต้องการอัพเดทเวอร์ชันของ Flutter และได้รับผลดีต่าง ๆ ที่มาพร้อมกับการอัพเดทเวอร์ชันใหม่ โดยในเวอร์ชันนี้มี Breaking Changes ด้วยกันทั้งหมด 6 อย่าง ได้แก่</p><ul><li>เพิ่ม <code>tabSemanticsLabel</code> ให้กับ <code>CupertinoLocalizations</code></li><li>เพิ่ม <code>clipBehavior</code> ให้กับ Widget ที่ใช้งาน <code>clipRect</code></li><li>แก้ไข Navigator Update Crash โดยจะมีผลกระทบกับผู้ที่ใช้ Navigator API และ Implement <code>TransitionDelegate</code></li><li>เพื่ม Tab semantics ให้กับ Cupertino เพื่อให้สอดคล้องกับ Material</li><li>ลบ Deprecated <code>child</code> สำหรับการจัดการ Sliver ที่มีการทับซ้อนกับ <code>NestedScrollView</code></li><li>เพิ่ม iOS Mid-drag Activity Indicator ใช้ในการตรวจสอบ Event ผู้ใช้ต้องการ Pull จากข้างบนลงมาแต่ไม่สุด</li></ul><hr><h2 id="new-in-dart-2-9-0">New in Dart 2.9.0</h2><p>สำหรับการเปลี่ยนแปลงใน Dart เวอร์ชัน 2.9.0 ก็ได้มีการอัพเดทที่กระทบกับทั้ง Core Libraries และ Tools ดังต่อไปนี้</p><p><code><strong>dart:async</strong></code></p><ul><li>เพิ่ม <code>Stream.multi</code> Constructor สำหรับสร้าง Stream ที่สามารถ Listen ได้มากกว่าหนึ่งครั้ง และแต่ละ Listener ถูกควบคุมโดยแยกจากกัน</li></ul><p><strong><code>dart:convert</code></strong></p><ul><li><u>BREAKING CHANGE</u>: เมื่อมีการ Encode String เป็น UTF-8 และมีบางส่วนที่ไม่พบสัญลักษณ์เท่าเข้าคู่กัน จะถูก Encoded เป็น <code>U+FFFD</code> (Replacement Character) และเมื่อมีการ Decode และพบจะถูกแจ้งว่าเป็น Malformed Input และเมื่อมีการ Decode เป็น UTF-8 ด้วย <code>allowMalformed: true</code> จำนวนของ Replacement Character สำหรับช่วงที่เป็น Malformed Input มีการเปลี่ยนแปลงเพื่อให้เป็นไปตามมาตรฐานของ <a href="https://encoding.spec.whatwg.org/#utf-8-decoder">WHATWG Encoding Standard</a></li></ul><p><strong><code>dart:io</code></strong></p><ul><li>Method Signature ของ <code>exit</code> มีการเปลี่ยน Return type จาก <code>void</code> เป็น <code>Never</code> เนื่องเพื่อให้เหมาะสมกับพฤติกรรมที่สื่อว่าจะไม่มีการรันโค้ดหลังจากนั้น</li><li>Class <code>OSError</code> ตอนนี้ได้มีการ Implement <code>Exception</code> แล้ว ทำให้สามารถ Catch ได้</li><li>เพิ่ม <code>InternetAddress.tryParse</code></li><li><a href="http://man7.org/linux/man-pages/man7/unix.7.html" rel="nofollow">Abstract Unix Domain Socket</a> ตอนนี้ได้รับการสนับสนุนบน Linux/Android แล้ว โดยการใช้ <code>InternetAddress</code> ที่มีการส่งค่า <code>address</code> ที่เริ่มต้นด้วย '@' แล้วมีประเภทเป็น <code>InternetAddressType.Unix</code> จะสร้าง abstract Unix Domain Socket.</li></ul><p><code><strong>dart:html</strong></code></p><ul><li><u>BREAKING CHANGE</u>: <code>CssClassSet.add()</code> เปลี่ยนจากการ Return <code>null</code> เมื่อ <code>CssClassSet</code> ถูกเชื่อมโยงกับหลาย Element เป็น <code>false</code> แทน เพื่อให้สอดคล้องกับการเปลี่ยนแปลงในเรื่องของ Null-safe ใน <code>Set</code> Interface โดยมีการเปลี่ยนแปลงเช่นเดียวกันกับ <code>CssClassSet.toggle</code></li><li><code>EventStreamSubscription.cancel</code> เปลี่ยนจากการ Return <code>null</code> เป็น <code>Future</code> แบบว่าง ๆ แทน เนื่องจาก​ <code>StreamSubscription.cancel</code> เปลี่ยนไปเป็น Non-nullable และเนื่องด้วยการ Optimization ของ <code>null</code> ซึ่งแต่เดิมจะมีการจบการทำงานแบบ Synchronus มาเป็น <code>Future</code> ซึ่งมีการจบการทำแบบ Asynchronus ทำให้ส่งผลกระทบกับโค้ดอื่น ๆ ที่ต้องการผลลัพธ์ข้างเคียง (Side-effect) ของ Synchronus โดยโค้ดที่ได้รับผลกระทบจะมีเพียงโค้ดที่ใช้งานแบบ Sound Null-safety เท่านั้น</li><li>Methods ใน <code>Console</code> ได้รับการอัพเดท เพื่อให้เข้ากันกับมาตรฐานใหม่ของ Console เช่น <code>dir</code> และ <code>table</code> ที่รับ Optional Arguments เพิ่มเติม</li></ul><p><strong><code>dart:mirrors</code></strong></p><ul><li><u>BREAKING CHANGE</u>: Web Compilers (dart2js และ DDC) จะให้ผลลัพธ์ Compile-time Error เมื่อ <code>dart:mirrors</code> ถูก Import เข้ามา โดยโปรเจคส่วนใหญ่จะไม่ได้รับผลกระทบ เนื่องจาก Dart 2.0.0 เป็นต้นไปนั้น <code>dart:mirrors</code> ไม่ได้รับการสนับสนุนแล้ว และจะปรากฎ Runtime Error เมื่อมีการพยายามเรียกใช้งาน API จาก Library นี้</li></ul><h3 id="tools">Tools</h3><h4 id="dartfmt-format-code-dart-">dartfmt (ตัว Format Code ของ Dart)</h4><ul><li>เพิ่ม <code>--fix-single-cascade-statements</code></li><li>แก้ไขการวิเคราะห์ <code>var</code> ใน <code>--fix-function-typedefs</code></li><li>คงค่าของที่ว่างไว้ในการ Comment แบบ Documentation</li><li>แยก Element ของ Control Flow ส่วนนอกที่ซ้อนกัน (Nested)</li><li>เพิ่มบรรทัดว่างเสมอหลัง <code>script</code> Tags</li><li>ไม่แยก <code>if</code> ที่ไม่จำเป็น สำหรับ <code>if</code> ที่อยู่ใกล้กับ Comment</li><li>เพิ่ม Indent blocks ใน initializers ของ การประกาศตัวแปรแบบหลายตัว</li><li>ปรับปรุง Null-aware Subscript Syntax จาก <code>?.[]</code> เป็น <code>?[]</code></li></ul><h4 id="linter-code-highlighter-dart-">Linter (Code Highlighter ของ Dart)</h4><p>อัพเดท Linter เป็นเวอร์ชัน <code>0.1.117</code></p><ul><li>ใหม่: <code>do_not_use_environment</code></li><li>ใหม่: <code>exhaustive_cases</code></li><li>ใหม่: <code>no_default_cases</code> (ทดลอง)</li><li>ใหม่: <code>sized_box_for_whitespace</code></li><li>ใหม่: <code>use_is_even_rather_than_modulo</code></li><li>ปรับปรุง <code>directives_ordering</code> ให้ลบ Third Party Package Special-casing</li><li>ปรับปรุง <code>prefer_is_empty</code> สำหรับ Special-case Assert Initializers const Contexts</li><li>ปรับปรุง <code>prefer_mixin</code> ให้อนุญาต "legacy" SDK Abstract Class Mixins</li><li>ปรับปรุง <code>sized_box_for_whitespace</code> โดยแก้ไขกรณี False-positive</li><li>ปรับปรุง <code>type_annotate_public_apis</code> ให้อนุญาต Inferred Types ใน final Field</li><li>ปรับปรุง <code>unnecessary_lambdas</code> ให้เช็ค Tear-off Assignability</li><li>ปรับปรุง <code>unsafe_html</code> ให้ใช้ <code>SecurityLintCode</code> (ทำให้ไม่สามารถมองข้ามได้) และเพิ่ม <code>Window.open</code>, <code>Element.html</code> และ <code>DocumentFragment.html</code> ในการเช็ค unsafe API นอกจากนี้ยังเพิ่มการเช็ค Attributes และ Methods ของ Extensions</li></ul><h3 id="dart-vm">Dart VM</h3><ul><li><u>BREAKING CHANGE</u>: เมื่อปริ้นต์ String ด้วย <code>print</code> แล้ว Default Implementation (ไม่ถูก Override) จะปริ้นต์ Replacement Character เมื่อเจอส่วนที่ไม่สามารถแปลงเป็นสัญลักษณ์ได้</li></ul><h3 id="pub">Pub</h3><ul><li><code>pub run</code> และ <code>pub global run</code> รับ Flag <code>--enable-experiment</code> สำหรับการเปิด Experiment ใน Dart VM (และ Dart)</li><li>เตือนเมื่อมีการ Publish Package เวอร์ชันแรกที่ใช้งาน Null safe</li><li><code>pub outdated</code> เพิ่ม​ Flag <code>--mode=null-safety</code> ที่จะบอกว่า Dependencies ไหนที่สามรถอัพเกรดเป็นเวอร์ชันที่รองรับ Null Safety ได้แล้ว นอกจากนี้ยังจะมีการเปลี่ยนแปลงโดยจะรายงานถึงเวอร์ชันที่เป็นแบบ Pre-release ของ Dependecy นั้น ๆ หากเวอร์ชันล่าสุดเป็น Pre-release แล้ว และไม่มีเวอร์ชันแบบ Stable ที่ใหม่กว่านั้น นอกจากนี้ยังยกเลิกการบังคับให้ต้องมีไฟล์ <code>pubspec.lock</code> อยู่เสมอ โดยเมื่อไม่เจอ Column จะแสดงผล Current จะเป็นว่าง ๆ แทน</li><li><code>pub upgrade</code> แสดงจำนวนของ Outdated Package แบบสรุปหลังจากรัน โดยจะแสดง Package ใหม่เฉพาะเมื่อไม่ใช่ Pre-release หรือเวอร์ชันล่าสุดเป็น Pre-release</li><li>การ Publish Flutter plugins ด้วย Format เก่าจะไม่รองรับแล้ว แต่การใช้งานจะยังคงใช้งานได้</li><li><code>pub run</code> แก้ไขการ Precompile โดยใช้ <code>PUB_CACHE</code> Relative Path</li><li>คงไว้ซึ่งเส้นสิ้นสุดบน Windows ใน <code>pubspec.lock</code> ถ้าหากมีอยู่แล้ว</li><li>ปรับปรุงการตรวจจับสีใน Terminal โดยใช้สีใน Terminal บน Windows</li><li>แก้ไขชื่อโฟลเดอร์ git ในแคล โดยอนุญาต ssh-style Git Dependency</li><li>แก้ไขโดยการหลีกเลี่ยงการ Precompile ของ Dependency ของ Global Package</li></ul><hr><h2 id="new-in-dart-devtools-0-9-0"> New in Dart DevTools 0.9.0</h2><p>เครื่องมือสำหรับการวัดประสิทธิภาพ และตัวช่วยแก้ไขโค้ดคู่ใจนักพัฒนา Dart/Flutter ในเวอร์ชันนี้ก็ได้รับการอัพเดทเช่นกัน โดยมีรายละเอียดดังต่อไปนี้</p><ul><li>General - เพิ่มความสามารถในการ Search ของ Timeline Flame Chart</li><li>General - เพิ่มความสามารถในการทำ Socket Profiling ในหน้า Network</li><li>Memory - สนับสนุน Snapshots หลาย ๆ อัน รวมไปถึงการสร้าง Snapshot แบบอัตโนมัติ</li><li>Memory - เพิ่มส่วนของ Event เพื่อใช้ในการติดตามจำนวนของการ Allocate สำหรับแต่ละ Class โดยไม่ต้องสร้าง Full Snapshot</li><li>Memory - เปลี่ยน Heatmap เป็น Treemap</li><li>Debugger - CMD+P จะสลับไปหน้า Library</li><li>Debugger - เพิ่มการสนับสนุนการเพิ่ม Keymap</li><li>Debugger - เพิ่ม Tooltips ให้กับ Item ใน List หน้า Debugger Libraries</li></ul><hr><h2 id="final-thoughts">Final Thoughts</h2><p>ถือว่าในอัพเดทนี้ Flutter ได้จัดหนักจัดเต็มทั้งการแก้ไขปัญหา ปรับปรุงประสิทธิภาพ รวมไปถึงการเพิ่มฟีเจอร์ใหม่ ๆ ที่เราไม่ได้เห็นกันบ่อยนัก สำหรับผู้ที่ต้องการอัพเดท Flutter เป็นเวอร์ชันใหม่ก็สามารถเปิด Termial และพิมพ์ Command กันได้เลย</p><pre><code class="language-shell">flutter upgrade</code></pre><hr><h2 id="spoiler-alert-future-of-flutter">Spoiler Alert! - Future of Flutter</h2><p><strong>Sound Null Safety</strong></p><p>สำหรับ Sound Null Safety เรามักจะได้เห็นกันบ่อยแล้วถึงการสปอยรัว ๆ จาก Flutter ถึงการมาของมัน ซึ่งจะเข้ามาช่วยให้เราเขียนโค้ดได้ปลอดภัย และปลอดบัคกันมากยิ่งขึ้น โดยผู้ที่สนใจในรายละเอียดเพิ่มเติมสามารถอ่านได้ที่ <a href="https://petepittawat.dev/dart-sound-null-safety/">Dart: Sound Null Safety กำลังมาใน Dart 2.9!</a></p><p><strong>Navigator 2.0</strong></p><p>นอกจากนี้หากแอบไปส่อง Milestone ของ Flutter เราจะยังเห็นได้อีกว่าใน August Milestone จะมี Navigator 2.0 อยู่ด้วยซึ่งจะเป็นการเพิ่มเติมให้เราสามารถควบคุม Navigation Stack ได้ง่ายได้มากยิ่งขึ้น รวมไปถึงการเปลี่ยนแปลงรูปแบบการเขียนโค้ดที่ใช้งาน Navigator จากแบบ Imperative ให้เป็นแบบ Declarative ซึ่งจะมีความสอดคล้องกับรูปแบบของการใช้งาน Widget ต่าง ๆ ใน Dart มากยิ่งขึ้น ผ่าน Widget ตัวใหม่ <code>Router</code> ซึ่งหากมีรายละเอียดเพิ่มเติมเมื่อไร จะนำมาแจ้งไว้ให้ได้ทราบในโอกาสถัดไป</p><p>แต่การเปลี่ยนแปลงนี้จะยังไม่ถึงกับ Deprecate Navigator แบบเก่าไปซะทีเดียว เรียกว่ามีช้อยส์มาให้เลือกใช้งานได้เพิ่มดีกว่า ดังนั้นจึงมั่นใจได้ว่าการเปลี่ยนแปลงนี้ไม่ใช่ Breaking Changes แน่นอน และยังคง Backward Compatible กับโค้ดชุดเก่าของเรา</p><hr><p>ถือได้ว่าอนาคตของ Flutter ตอนนี้กำลังสดใสมาก ๆ สำหรับใครที่ยังไม่เคยลองเขียน Flutter ก็ต้องบอกว่าแม้ว่าในอนาคตจะมีฟีเจอร์ใหม่ ๆ เพิ่มเข้ามาที่อาจเปลี่ยนแปลงรูปแบบการเขียนโค้ดไป แต่เชื่อเหลือเกินว่า ณ ขณะนี้คือเวลาที่ดีที่สุดแล้วในการเริ่มทดลองใช้งาน Flutter โดยสำหรับผู้ที่สนใจก็สามารถลองไปอ่าน <a href="https://flutter.dev/docs">Flutter Documentation</a> หรือหากใครอยากเรียนรู้ผ่านการเขียนโค้ดก็สามารถลองไปเล่น <a href="https://flutter.dev/docs/codelabs">Flutter Codelabs</a> กันได้ ซึ่งมีให้ตั้งแต่ Beginners ยันผู้ที่ต้องการใช้งานขั้นสูงกันเลยทีเดียว</p><hr><h2 id="-hope-you-enjoy-reading-"><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>📚 Hope you enjoy reading! 📚</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></h2><hr>
+<section class="m-tags in-post">
+<h3 class="m-submenu-title">Tags</h3>
+<ul>
+<li>
+<a href="/tag/dart/" title="Dart">Dart</a>
+</li>
+<li>
+<a href="/tag/flutter/" title="Flutter">Flutter</a>
+</li>
+<li>
+<a href="/tag/news/" title="News">News</a>
+</li>
+ </ul>
+</section>
+</div>
+</div>
+</div>
+<section class="m-author">
+<div class="m-author__content">
+<div class="m-author__picture">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-author-picture" aria-label="Pittawat Taveekitworachai">
+<div style="background-image: url(https://petepittawat.dev/content/images/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-author__info">
+<h4 class="m-author__name">
+<a href="https://petepittawat.dev/author/pittawat/">Pittawat Taveekitworachai</a>
+</h4>
+<p class="m-author__bio">A CS student who passionate about web and mobile technology with the belief that technology can enhance people&#x27;s life.</p>
+<ul class="m-author-links">
+<li>
+<a href="https://facebook.com/petepittawat.dev/" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="m-recommended">
+<div class="l-wrapper in-recommended">
+<h3 class="m-section-title in-recommended">Recommended for you</h3>
+<div class="m-recommended-articles">
+<div class="m-recommended-slider glide js-recommended-slider">
+<div class="glide__track" data-glide-el="track">
+<div class="glide__slides">
+<div class="m-recommended-slider__item glide__slide">
+<article class="m-article-card  post tag-flutter tag-dart tag-news">
+<div class="m-article-card__picture">
+<a href="/pub-dev-new-version-jul-2020/" class="m-article-card__picture-link" aria-hidden="true" tabindex="-1"></a>
+<img class="m-article-card__picture-background" src="/content/images/size/w600/2020/07/PetePittawatTemplate.001-5.jpeg" loading="lazy" alt="">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-article-card__author js-tooltip" aria-label="Pittawat Taveekitworachai" data-tippy-content="Posted by Pittawat Taveekitworachai ">
+<div style="background-image: url(/content/images/size/w100/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-article-card__info">
+<a href="https://petepittawat.dev/tag/flutter/" class="m-article-card__tag">Flutter</a>
+<a href="/pub-dev-new-version-jul-2020/" class="m-article-card__info-link" aria-label="pub.dev เวอร์ชันใหม่มาแล้ว!">
+<div>
+<h2 class="m-article-card__title js-article-card-title " title="pub.dev เวอร์ชันใหม่มาแล้ว!">
+pub.dev เวอร์ชันใหม่มาแล้ว!
+</h2>
+</div>
+<div class="m-article-card__timestamp">
+<span>2 years ago</span>
+<span>&bull;</span>
+<span>2 min read</span>
+</div>
+</a>
+</div>
+</article>
+</div>
+<div class="m-recommended-slider__item glide__slide">
+<article class="m-article-card  post tag-flutter tag-dart">
+<div class="m-article-card__picture">
+<a href="/future-of-flutter-may-2021/" class="m-article-card__picture-link" aria-hidden="true" tabindex="-1"></a>
+<img class="m-article-card__picture-background" src="/content/images/size/w600/2021/05/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-article-card__author js-tooltip" aria-label="Pittawat Taveekitworachai" data-tippy-content="Posted by Pittawat Taveekitworachai ">
+<div style="background-image: url(/content/images/size/w100/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-article-card__info">
+<a href="https://petepittawat.dev/tag/flutter/" class="m-article-card__tag">Flutter</a>
+<a href="/future-of-flutter-may-2021/" class="m-article-card__info-link" aria-label="Flutter: วิเคราะห์อนาคตของ Flutter 2.2+">
+<div>
+<h2 class="m-article-card__title js-article-card-title " title="Flutter: วิเคราะห์อนาคตของ Flutter 2.2+">
+Flutter: วิเคราะห์อนาคตของ Flutter 2.2+
+</h2>
+</div>
+<div class="m-article-card__timestamp">
+<span>a year ago</span>
+<span>&bull;</span>
+<span>2 min read</span>
+</div>
+</a>
+</div>
+</article>
+</div>
+<div class="m-recommended-slider__item glide__slide">
+<article class="m-article-card  post tag-flutter tag-news">
+<div class="m-article-card__picture">
+<a href="/flutter-bloc-flutter-bloc-v6/" class="m-article-card__picture-link" aria-hidden="true" tabindex="-1"></a>
+<img class="m-article-card__picture-background" src="/content/images/size/w600/2020/07/3CED4058-8462-4CB9-ABD4-29D2319BC821.jpeg" loading="lazy" alt="">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-article-card__author js-tooltip" aria-label="Pittawat Taveekitworachai" data-tippy-content="Posted by Pittawat Taveekitworachai ">
+<div style="background-image: url(/content/images/size/w100/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-article-card__info">
+<a href="https://petepittawat.dev/tag/flutter/" class="m-article-card__tag">Flutter</a>
+<a href="/flutter-bloc-flutter-bloc-v6/" class="m-article-card__info-link" aria-label="Flutter: bloc และ flutter_bloc v6 มาแล้ว!">
+<div>
+<h2 class="m-article-card__title js-article-card-title " title="Flutter: bloc และ flutter_bloc v6 มาแล้ว!">
+Flutter: bloc และ flutter_bloc v6 มาแล้ว!
+</h2>
+</div>
+<div class="m-article-card__timestamp">
+<span>2 years ago</span>
+<span>&bull;</span>
+<span>1 min read</span>
+</div>
+</a>
+</div>
+</article>
+</div>
+</div>
+</div>
+<div data-glide-el="controls" class="glide__arrows js-controls">
+<button data-glide-dir="<" class="m-icon-button filled in-recommended-articles glide-prev" aria-label="Previous">
+<span class="icon-arrow-left" aria-hidden="true"></span>
+</button>
+<button data-glide-dir=">" class="m-icon-button filled in-recommended-articles glide-next" aria-label="Next">
+<span class="icon-arrow-right" aria-hidden="true"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</article>
+</main>
+<div class="m-search js-search" role="dialog" aria-modal="true" aria-label="Search">
+<button class="m-icon-button outlined as-close-search js-close-search" aria-label="Close search">
+<span class="icon-close" aria-hidden="true"></span>
+</button>
+<div class="m-search__content">
+<form class="m-search__form">
+<div class="pos-relative">
+<span class="icon-search m-search-icon" aria-hidden="true"></span>
+<label for="search-input" class="sr-only">
+Type to search
+</label>
+<input id="search-input" type="text" class="m-input in-search js-input-search" placeholder="Type to search">
+</div>
+</form>
+<div class="js-search-results hide"></div>
+<p class="m-not-found align-center hide js-no-results">
+No results for your search, please try with something else.
+</p>
+</div>
+</div>
+<footer class="m-footer">
+<div class="m-footer__content">
+<nav class="m-footer-social">
+<a href="https://www.facebook.com/petepittawat.dev/" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+<a href="https://petepittawat.dev/rss" aria-label="RSS">
+<span class="icon-rss" aria-hidden="true"></span>
+</a>
+</nav>
+<p class="m-footer-copyright">
+<span>PETEPITTAWAT.DEV &copy; 2022</span>
+<span>&nbsp; &bull; &nbsp;</span>
+<span>Published with <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a></span>
+</p>
+<p class="m-footer-copyright jslicense">
+<a href="/assets/html/javascript.html?v=0787077eaf" rel="jslicense">JavaScript license information</a>
+</p>
+<a href="https://webring.wonderful.software#petepittawat.dev" title="วงแหวนเว็บ">
+<img alt="วงแหวนเว็บ" width="32" height="32" src="https://webring.wonderful.software/webring.svg" />
+</a>
+</div>
+</footer>
+<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CPromise%2CArray.prototype.includes%2CString.prototype.endsWith%2CString.prototype.startsWith%2CObject.assign%2CNodeList.prototype.forEach" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script defer src="/assets/js/manifest.js?v=0787077eaf" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script defer src="/assets/js/vendor/content-api.min.js?v=0787077eaf" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script defer src="/assets/js/vendor.js?v=0787077eaf" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script defer src="/assets/js/app.js?v=0787077eaf" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script defer src="/assets/js/post.js?v=0787077eaf" type="ea5d4101c3ad086a2b4c6f15-text/javascript"></script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="ea5d4101c3ad086a2b4c6f15-|49" defer=""></script></body>
+</html>

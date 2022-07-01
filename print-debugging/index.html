@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Print Debugging ทำแบบนี้ดีไหมนะ?</title>
+<meta name="HandheldFriendly" content="True" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" href="/assets/css/app.css?v=0787077eaf" as="style" />
+<link rel="preload" href="/assets/js/manifest.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/vendor/content-api.min.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/vendor.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/app.js?v=0787077eaf" as="script" />
+<link rel="preconnect" href="https://polyfill.io">
+<link rel="dns-prefetch" href="https://polyfill.io">
+<link rel="preload" href="/assets/css/post.css?v=0787077eaf" as="style" />
+<link rel="preload" href="/assets/js/post.js?v=0787077eaf" as="script" />
+<style>
+      /* These font-faces are here to make fonts work if the Ghost instance is installed in a subdirectory */
+
+      /* source-sans-pro-regular */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('SourceSansPro-Regular'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-regular.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-regular.woff?v=0787077eaf") format('woff');
+      }
+
+      /* source-sans-pro-600 */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: local('SourceSansPro-SemiBold'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-600.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-600.woff?v=0787077eaf") format('woff');
+      }
+
+      /* source-sans-pro-700 */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: local('SourceSansPro-Bold'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-700.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-700.woff?v=0787077eaf") format('woff');
+      }
+
+      /* iconmoon */
+      @font-face {
+        font-family: 'icomoon';
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+        src: url("/assets/fonts/icomoon/icomoon.eot?101fc3?v=0787077eaf");
+        src: url("/assets/fonts/icomoon/icomoon.eot?101fc3?v=0787077eaf#iefix") format('embedded-opentype'),
+        url("/assets/fonts/icomoon/icomoon.ttf?101fc3?v=0787077eaf") format('truetype'),
+        url("/assets/fonts/icomoon/icomoon.woff?101fc3?v=0787077eaf") format('woff'),
+        url("/assets/fonts/icomoon/icomoon.svg?101fc3?v=0787077eaf#icomoon") format('svg');
+      }
+    </style>
+<link rel="stylesheet" type="text/css" href="/assets/css/app.css?v=0787077eaf" media="screen" />
+<link rel="stylesheet" type="text/css" href="/assets/css/post.css?v=0787077eaf" media="screen" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="canonical" href="https://petepittawat.dev/print-debugging/" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+<link rel="amphtml" href="https://petepittawat.dev/print-debugging/amp/" />
+<meta property="og:site_name" content="PETEPITTAWAT.DEV" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Print Debugging ทำแบบนี้ดีไหมนะ?" />
+<meta property="og:description" content="การพัฒนาโปรแกรมกับบัคนั้นอาจเรียกได้ว่าเป็นของคู่กัน
+ไม่ว่าเราจะตั้งใจหรือไม่ก็ตาม บัคก็มีอยู่หลายแบบ หลายประเภท
+หากเป็นบัคที่เราพิมพ์ผิด Syntax หรือบัคตระกูล Compile-time Error
+แบบนี้เราอาจจะแก้ไขได้ง่าย เพราะว่า Compiler จะบอกเราถึงจุดที่เราผิ" />
+<meta property="og:url" content="https://petepittawat.dev/print-debugging/" />
+<meta property="og:image" content="https://petepittawat.dev/content/images/2020/08/PetePittawatTemplate.001-4.jpeg" />
+<meta property="article:published_time" content="2020-08-07T05:33:24.000Z" />
+<meta property="article:modified_time" content="2020-08-07T05:34:59.000Z" />
+<meta property="article:tag" content="Computer Science" />
+<meta property="article:publisher" content="https://www.facebook.com/petepittawat.dev/" />
+<meta property="article:author" content="https://www.facebook.com/petepittawat.dev/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Print Debugging ทำแบบนี้ดีไหมนะ?" />
+<meta name="twitter:description" content="การพัฒนาโปรแกรมกับบัคนั้นอาจเรียกได้ว่าเป็นของคู่กัน
+ไม่ว่าเราจะตั้งใจหรือไม่ก็ตาม บัคก็มีอยู่หลายแบบ หลายประเภท
+หากเป็นบัคที่เราพิมพ์ผิด Syntax หรือบัคตระกูล Compile-time Error
+แบบนี้เราอาจจะแก้ไขได้ง่าย เพราะว่า Compiler จะบอกเราถึงจุดที่เราผิ" />
+<meta name="twitter:url" content="https://petepittawat.dev/print-debugging/" />
+<meta name="twitter:image" content="https://petepittawat.dev/content/images/2020/08/PetePittawatTemplate.001-4.jpeg" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Pittawat Taveekitworachai" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="Computer Science" />
+<meta property="og:image:width" content="1920" />
+<meta property="og:image:height" content="1080" />
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "PETEPITTAWAT.DEV",
+        "url": "https://petepittawat.dev/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Pittawat Taveekitworachai",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://petepittawat.dev/content/images/2020/05/38406520_1997472006995151_732443772536750080_o.jpg",
+            "width": 1163,
+            "height": 1163
+        },
+        "url": "https://petepittawat.dev/author/pittawat/",
+        "sameAs": [
+            "https://www.facebook.com/petepittawat.dev/"
+        ]
+    },
+    "headline": "Print Debugging ทำแบบนี้ดีไหมนะ?",
+    "url": "https://petepittawat.dev/print-debugging/",
+    "datePublished": "2020-08-07T05:33:24.000Z",
+    "dateModified": "2020-08-07T05:34:59.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://petepittawat.dev/content/images/2020/08/PetePittawatTemplate.001-4.jpeg",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "Computer Science",
+    "description": "การพัฒนาโปรแกรมกับบัคนั้นอาจเรียกได้ว่าเป็นของคู่กัน\nไม่ว่าเราจะตั้งใจหรือไม่ก็ตาม บัคก็มีอยู่หลายแบบ หลายประเภท\nหากเป็นบัคที่เราพิมพ์ผิด Syntax หรือบัคตระกูล Compile-time Error\nแบบนี้เราอาจจะแก้ไขได้ง่าย เพราะว่า Compiler จะบอกเราถึงจุดที่เราผิด\nรวมทถึงในบางครั้งก็แนะนำวิธีแก้ให้กับเราเรียบร้อย\n\nPhoto by Max Chen\n[https://unsplash.com/@maxchen2k?utm_source&#x3D;ghost&amp;utm_medium&#x3D;referral&amp;utm_campaign&#x3D;api-credit] \n/ Unsplash\n[https://unsplash.com/?utm_source&#x3D;ghost&amp;utm_medium&#x3D;referral&amp;utm_campaign&#x3D;api-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://petepittawat.dev/"
+    }
+}
+    </script>
+<meta name="generator" content="Ghost 5.0" />
+<link rel="alternate" type="application/rss+xml" title="PETEPITTAWAT.DEV" href="https://petepittawat.dev/rss/" />
+<script defer src="/public/cards.min.js?v=0787077eaf" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=0787077eaf">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+<style>
+  pre[class*="language-"] {
+    margin: 0 0 1.5em !important;
+  }
+  code {
+    text-shadow: none !important;
+  }
+  .token.operator {
+    background: none !important;
+  }
+  :not(pre) > code[class*="language-"],
+  pre[class*="language-"] {
+    background: #20262E !important;
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70874868-4" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script type="6cd6d26a5558f18a5a538f41-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70874868-4');
+</script>
+<script data-ad-client="ca-pub-8039993497715876" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script type="6cd6d26a5558f18a5a538f41-text/javascript" defer>
+    window.addEventListener('DOMContentLoaded', (_) => {      
+        document.querySelectorAll('pre[class*=language-]').forEach(function(node) {
+            node.classList.add('line-numbers');
+		});
+        Prism.highlightAll();
+    });
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script type="6cd6d26a5558f18a5a538f41-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js" defer></script>
+<script type="6cd6d26a5558f18a5a538f41-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-dart.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-python.min.js" defer integrity="sha512-wK9tQmDrstGtZqTKcyVf3h457QGMlNriKs+fHmEkiCizrq0LVovfT3v1smeT1DlQetHhdRkkX1JSuZg5LoNHJg==" crossorigin="anonymous" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-django.min.js" defer integrity="sha512-zceTbktmadDMVN0NdIOgrT6pCS6ru9qBGn6SQBs/da9HDcCIvieqGmss8FmaKRWGapZdzFAiBX1Ju8ZHbnpPmg==" crossorigin="anonymous" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-css.min.js" defer integrity="sha512-1qYok2x2Rsm2y+mrdyrp00iH7xYSgVyIQ1egDAoT7CBZ3kSzlaJK+NhWAh746NeL3gnH6dnP8FGS+3xOdwO7ig==" crossorigin="anonymous" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-css-extras.min.js" defer integrity="sha512-JEJN8jMnX+Ryl2SPlM18/6TwaH5FnN+Mvasfnh3E7awC/JAVpuWOvc5rSMqCD7MM22x5PxQgRUr5h8G2zHceMQ==" crossorigin="anonymous" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-javascript.min.js" defer integrity="sha512-I4ZWqUpk7wqHcm7Gkv7k4IdgrDUTlGm1a7xeqyduqZLWeoGOn2E9us4XNBEDGclpk+6d1CmqIHYwmoyyL59zeA==" crossorigin="anonymous" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script type="6cd6d26a5558f18a5a538f41-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js" defer></script><style>:root {--ghost-accent-color: #15171A;}</style>
+<style>
+      :root {
+        --primary-subtle-color: var(--ghost-accent-color) !important;
+      }
+    </style>
+<script type="6cd6d26a5558f18a5a538f41-text/javascript">
+      // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+      const ghostHost = "https://petepittawat.dev"
+      // @license-end
+    </script>
+<script type="6cd6d26a5558f18a5a538f41-text/javascript">
+        const ghostSearchApiKey = "7c4c6f38cf1355e3f95df27069"
+      </script>
+</head>
+<body class="post-template tag-computer-science">
+<header class="m-header with-picture js-header">
+<div class="m-mobile-topbar" data-aos="fade-down">
+<button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
+<span class="icon-menu" aria-hidden="true"></span>
+</button>
+<a href="https://petepittawat.dev" class="m-logo in-mobile-topbar">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-light">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-dark.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-dark">
+</a>
+<button class="m-icon-button in-mobile-topbar js-open-search" aria-label="Open search">
+<span class="icon-search" aria-hidden="true"></span>
+</button>
+</div>
+<div class="m-menu js-menu">
+<button class="m-icon-button outlined as-close-menu js-close-menu" aria-label="Close menu">
+<span class="icon-close"></span>
+</button>
+<div class="m-menu__main" data-aos="fade-down">
+<div class="l-wrapper">
+<div class="m-nav js-main-nav">
+<nav class="m-nav__left js-main-nav-left" role="navigation" aria-label="Main menu">
+<ul>
+<li class="only-desktop">
+<a href="https://petepittawat.dev" class="m-logo">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-light">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-dark.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-dark">
+</a>
+</li>
+<li class="nav-home">
+<a href="https://petepittawat.dev/">Home</a>
+</li>
+<li class="nav-computer-science">
+<a href="https://petepittawat.dev/tag/computer-science/">Computer Science</a>
+</li>
+<li class="nav-dart">
+<a href="https://petepittawat.dev/tag/dart/">Dart</a>
+</li>
+<li class="nav-flutter">
+<a href="https://petepittawat.dev/tag/flutter/">Flutter</a>
+</li>
+<li class="nav-python">
+<a href="https://petepittawat.dev/tag/python/">Python</a>
+</li>
+<li class="nav-web">
+<a href="https://petepittawat.dev/tag/web/">Web</a>
+</li>
+<li class="nav-review">
+<a href="https://petepittawat.dev/tag/review/">Review</a>
+</li>
+<li class="nav-about">
+<a href="https://petepittawat.dev/about/">About</a>
+</li>
+<li class="submenu-option js-submenu-option">
+<button class="m-icon-button in-menu-main more js-toggle-submenu" aria-label="Open submenu">
+<span class="icon-more" aria-hidden="true"></span>
+</button>
+<div class="m-submenu js-submenu">
+<div class="l-wrapper in-submenu">
+<section class="m-recent-articles">
+<h3 class="m-submenu-title in-recent-articles">Recent articles</h3>
+<div class="glide js-recent-slider">
+<div class="glide__track" data-glide-el="track">
+<div class="glide__slides">
+<div class="glide__slide">
+<a href="/wisdom/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/07/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="ปัญญา">
+ปัญญา
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/future-of-flutter-may-2021/" class="m-recent-article">
+ <div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/05/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="Flutter: วิเคราะห์อนาคตของ Flutter 2.2+">
+Flutter: วิเคราะห์อนาคตของ Flutter 2.2+
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/js-event-bubbling-capture/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/03/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="JS: Event Bubbling and Capture">
+JS: Event Bubbling and Capture
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/flutter-engage-2021-prediction/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/02/PetePittawatDevFullTemplate.001-1.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="คาดการณ์ Flutter Engage 2021">
+คาดการณ์ Flutter Engage 2021
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="m-tags">
+<h3 class="m-submenu-title">Tags</h3>
+<ul>
+<li>
+<a href="/tag/ai/">AI</a>
+</li>
+<li>
+<a href="/tag/books/">Books</a>
+</li>
+<li>
+<a href="/tag/computer-science/">Computer Science</a>
+</li>
+<li>
+<a href="/tag/dart/">Dart</a>
+</li>
+<li>
+<a href="/tag/data-science/">Data Science</a>
+</li>
+<li>
+<a href="/tag/flutter/">Flutter</a>
+</li>
+<li>
+<a href="/tag/general/">General</a>
+</li>
+<li>
+<a href="/tag/html/">HTML</a>
+</li>
+<li>
+<a href="/tag/javascript/">JavaScript</a>
+</li>
+<li>
+<a href="/tag/movie/">Movie</a>
+</li>
+</ul>
+ </section>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+<div class="m-nav__right">
+<button class="m-icon-button in-menu-main js-open-search" aria-label="Open search">
+<span class="icon-search" aria-hidden="true"></span>
+</button>
+<div class="m-toggle-darkmode js-tooltip" data-tippy-content="Toggle dark mode" tabindex="0">
+<label for="toggle-darkmode" class="sr-only">
+Toggle dark mode
+</label>
+<input id="toggle-darkmode" type="checkbox" class="js-toggle-darkmode">
+<div>
+<span class="icon-moon moon" aria-hidden="true"></span>
+<span class="icon-sunny sun" aria-hidden="true"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="main-wrap">
+<section class="m-hero with-picture" data-aos="fade">
+<div class="m-hero__picture in-post">
+<img srcset="
+          /content/images/size/w300/2020/08/PetePittawatTemplate.001-4.jpeg 300w,
+          /content/images/size/w600/2020/08/PetePittawatTemplate.001-4.jpeg 600w,
+          /content/images/size/w1000/2020/08/PetePittawatTemplate.001-4.jpeg 1000w,
+          /content/images/size/w2000/2020/08/PetePittawatTemplate.001-4.jpeg 2000w
+        " sizes="(max-width: 600px) 600px, (max-width: 1000px) 1000px, 2000px" src="/content/images/size/w1000/2020/08/PetePittawatTemplate.001-4.jpeg" alt="" />
+</div>
+</section>
+<article>
+<div class="l-content in-post">
+<div class="l-wrapper in-post  js-aos-wrapper" data-aos="fade-up" data-aos-delay="300">
+<div class="l-post-content js-progress-content">
+<header class="m-heading">
+<h1 class="m-heading__title in-post">Print Debugging ทำแบบนี้ดีไหมนะ?</h1>
+<div class="m-heading__meta">
+<a href="https://petepittawat.dev/tag/computer-science/" class="m-heading__meta__tag">Computer Science</a>
+<span class="m-heading__meta__divider" aria-hidden="true">&bull;</span>
+<span class="m-heading__meta__time">Aug 7, 2020</span>
+</div>
+</header>
+<div class="pos-relative js-post-content">
+<div class="m-share">
+<div class="m-share__content js-sticky">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://petepittawat.dev/print-debugging/" class="m-icon-button filled in-share" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+<a href="https://twitter.com/intent/tweet?text=Print%20Debugging%20%E0%B8%97%E0%B8%B3%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%99%E0%B8%B5%E0%B9%89%E0%B8%94%E0%B8%B5%E0%B9%84%E0%B8%AB%E0%B8%A1%E0%B8%99%E0%B8%B0%3F&url=https://petepittawat.dev/print-debugging/" class="m-icon-button filled in-share" target="_blank" rel="noopener" aria-label="Twitter">
+<span class="icon-twitter" aria-hidden="true"></span>
+</a>
+<button class="m-icon-button filled in-share progress js-scrolltop" aria-label="Scroll to top">
+<span class="icon-arrow-top" aria-hidden="true"></span>
+<svg aria-hidden="true">
+<circle class="progress-ring__circle js-progress" fill="transparent" r="0" />
+</svg>
+</button>
+</div>
+</div>
+<p>การพัฒนาโปรแกรมกับบัคนั้นอาจเรียกได้ว่าเป็นของคู่กัน ไม่ว่าเราจะตั้งใจหรือไม่ก็ตาม บัคก็มีอยู่หลายแบบ หลายประเภท หากเป็นบัคที่เราพิมพ์ผิด Syntax หรือบัคตระกูล Compile-time Error แบบนี้เราอาจจะแก้ไขได้ง่าย เพราะว่า Compiler จะบอกเราถึงจุดที่เราผิด รวมทถึงในบางครั้งก็แนะนำวิธีแก้ให้กับเราเรียบร้อย</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1543285198-3af15c4592ce?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt loading="lazy" width="4032" height="3024" srcset="https://images.unsplash.com/photo-1543285198-3af15c4592ce?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1543285198-3af15c4592ce?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1543285198-3af15c4592ce?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1543285198-3af15c4592ce?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@maxchen2k?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Max Chen</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p>แต่หลายครั้งที่บัคที่เราเจอนั้นมาในรูปแบบของพฤติกรรมของโปรแกรมไม่เป็นไปตามที่เราตั้งใจไว้ ซึ่งหลาย ๆ ครั้งเรามักเรียกว่า Logic Error หรือข้อผิดพลาดที่เกิดจากการที่เราสั่งงานผ่านโค้ดได้ไม่ถูกต้อง (แม้ว่าเราจะคิดว่าถูก)​ ทำให้โปรแกรมมีพฤติกรรมไม่เป็นไปตามที่เราตั้งใจไว้</p><p>แน่นอนว่าการแก้ไขบัคที่เป็น Logic Error นั้นยากกว่าการแก้ไขบัคแบบ Syntax Error หรือ Type Error มาก เพราะนอกจาก Compiler จะไม่บอกเราแล้วมามีอะไรผิด หลายครั้งเรามักจะไม่รู้ด้วยว่าจะเริ่มต้นที่ตรงไหนดีที่ทำให้ข้อผิดพลาดนี้เกิดขึ้นมา</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://images.unsplash.com/photo-1490127252417-7c393f993ee4?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ" class="kg-image" alt="Bend man" loading="lazy" width="4608" height="3072" srcset="https://images.unsplash.com/photo-1490127252417-7c393f993ee4?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 600w, https://images.unsplash.com/photo-1490127252417-7c393f993ee4?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1000&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1000w, https://images.unsplash.com/photo-1490127252417-7c393f993ee4?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 1600w, https://images.unsplash.com/photo-1490127252417-7c393f993ee4?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=2400&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ 2400w" sizes="(min-width: 720px) 720px"><figcaption>Photo by <a href="https://unsplash.com/@laughayette?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Marten Newhall</a> / <a href="https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit">Unsplash</a></figcaption></figure><p>วิธีหนึ่งที่เรามักใช้กันในการวิเคราะห์ข้อผิดพลาดคือการสังเกต (Observe) ค่าของตัวแปรต่าง ๆ ที่เปลี่ยนแปลงไปในแต่ละช่วงขณะของโปรแกรมว่าเป็นไปตามที่ตั้งใจไว้หรือไม่ ซึ่งเรามักจะทำด้วยการ Print ชื่อตัวแปร + ค่าออกมาในหลาย ๆ จุดของโปรแกรม</p><p>ข้อดีที่เห็นได้ชัดของวิธีนี้คือง่ายและค่อนข้างเป็นไปตามสัญชาตญาณของเรา อย่างไรก็ตามวิธีนี้มักจะมาพร้อมกับ</p><ol><li>การที่จะต้องจำและมาตามเก็บ Print ต่าง ๆ ที่เราแปะไว้ทั่วทั้งโปรแกรม</li><li>หรือถ้าเราไม่ลบเราอาจจะ Comment ไว้เผื่อใช้ในอนาคตซึ่งทำให้โค้ดเรารกโดยไม่จำเป็น</li><li>สับสนมากขึ้น หากเรามีโค้ดส่วนที่ใช้งานสำหรับ Log อยู่แล้ว</li><li>หากเป็นบางระบบที่ผู้ใช้สามารถเข้าถึง Output จากการ Print ได้ง่าย เช่น Website แล้วเราเผลอ Print Sensitive Data ก็อาจจะเป็นปัญหาได้ หากเราเผลอไม่ได้ลบ Print ที่ใช้เสร็จแล้วทิ้งไป</li><li>หากเป็นระบบที่มีนักพัฒนาหลายคนทำงานร่วมกัน (ส่วนใหญ่ในปัจจุบัน)​ แล้วโค้ดส่วนที่เราใช้สำหรับ Print หลุดขึ้นไปบน Version Control ก็อาจทำให้นักพัฒนาคนอื่นสับสนได้ว่าโค้ดส่วนนั้นเป็นส่วนที่จำเป็นต่อโปรแกรมจริง ๆ หรือไม่</li></ol><p>ดังนั้นหากเราต้องการใช้วิธีนี้ ก็อาจเหมาะสำหรับการ Track ตัวแปรไม่กี่ตัวในไม่กี่ตำแหน่งเท่านั้น แต่จริง ๆ แล้วเรามีวิธีที่ดีกว่านั้น นั่นคือการใช้งาน Breakpoint คู่กับ Debugger ซึ่ง IDE/Code Editor เจ้าดัง ๆ หลายตัวต่างติดมาให้เรียบร้อยแล้วรอให้เราใช้งาน โดยในหลายครั้ง Debugger เหล่านี้ยังมาพร้อมความสามารถเพิ่มเติมที่จะช่วยให้การแก้ไขโปรแกรมของเราลดเวลา และความ Pain ลงได้อีกด้วย</p><p>รู้อย่างนี้แล้วก็อยากเชิญชวนให้ทุก ๆ คนมาหัดใช้ Debugger, Breakpoint เพื่อช่วยเราในการ Debug โปรแกรมกันแทนการใช้ Print statement เพื่อชีวิตที่ดีขึ้นของเรานั่นเอง</p><hr><h2 id="-hope-you-enjoy-reading-"><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>📚 Hope you enjoy reading! 📚</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></h2><hr>
+<section class="m-tags in-post">
+<h3 class="m-submenu-title">Tags</h3>
+<ul>
+<li>
+<a href="/tag/computer-science/" title="Computer Science">Computer Science</a>
+</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<section class="m-author">
+<div class="m-author__content">
+<div class="m-author__picture">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-author-picture" aria-label="Pittawat Taveekitworachai">
+<div style="background-image: url(https://petepittawat.dev/content/images/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-author__info">
+<h4 class="m-author__name">
+<a href="https://petepittawat.dev/author/pittawat/">Pittawat Taveekitworachai</a>
+</h4>
+<p class="m-author__bio">A CS student who passionate about web and mobile technology with the belief that technology can enhance people&#x27;s life.</p>
+<ul class="m-author-links">
+<li>
+<a href="https://facebook.com/petepittawat.dev/" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="m-recommended">
+<div class="l-wrapper in-recommended">
+<h3 class="m-section-title in-recommended">Recommended for you</h3>
+<div class="m-recommended-articles">
+<div class="m-recommended-slider glide js-recommended-slider">
+<div class="glide__track" data-glide-el="track">
+<div class="glide__slides">
+<div class="m-recommended-slider__item glide__slide">
+<article class="m-article-card  post tag-ai tag-computer-science">
+<div class="m-article-card__picture">
+<a href="/review-line-developer-day-2020-the-past-and-future-of-machine-learning-research/" class="m-article-card__picture-link" aria-hidden="true" tabindex="-1"></a>
+<img class="m-article-card__picture-background" src="/content/images/size/w600/2021/02/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-article-card__author js-tooltip" aria-label="Pittawat Taveekitworachai" data-tippy-content="Posted by Pittawat Taveekitworachai ">
+<div style="background-image: url(/content/images/size/w100/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-article-card__info">
+<a href="https://petepittawat.dev/tag/ai/" class="m-article-card__tag">AI</a>
+<a href="/review-line-developer-day-2020-the-past-and-future-of-machine-learning-research/" class="m-article-card__info-link" aria-label="Review: LINE Developer Day 2020 - The past and future of machine learning research">
+<div>
+<h2 class="m-article-card__title js-article-card-title " title="Review: LINE Developer Day 2020 - The past and future of machine learning research">
+Review: LINE Developer Day 2020 - The past and future of machine learning research
+</h2>
+</div>
+<div class="m-article-card__timestamp">
+<span>a year ago</span>
+<span>&bull;</span>
+<span>4 min read</span>
+</div>
+</a>
+</div>
+</article>
+</div>
+<div class="m-recommended-slider__item glide__slide">
+<article class="m-article-card  post tag-computer-science tag-operating-systems">
+<div class="m-article-card__picture">
+<a href="/memory-partitioning/" class="m-article-card__picture-link" aria-hidden="true" tabindex="-1"></a>
+<img class="m-article-card__picture-background" src="/content/images/size/w600/2020/06/PetePittawatTemplate.001-5.jpeg" loading="lazy" alt="">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-article-card__author js-tooltip" aria-label="Pittawat Taveekitworachai" data-tippy-content="Posted by Pittawat Taveekitworachai ">
+<div style="background-image: url(/content/images/size/w100/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-article-card__info">
+<a href="https://petepittawat.dev/tag/computer-science/" class="m-article-card__tag">Computer Science</a>
+<a href="/memory-partitioning/" class="m-article-card__info-link" aria-label="OS จัดการกับ Main Memory ยังไงนะ? - Memory Partitioning">
+<div>
+<h2 class="m-article-card__title js-article-card-title " title="OS จัดการกับ Main Memory ยังไงนะ? - Memory Partitioning">
+OS จัดการกับ Main Memory ยังไงนะ? - Memory Partitioning
+</h2>
+</div>
+<div class="m-article-card__timestamp">
+<span>2 years ago</span>
+<span>&bull;</span>
+<span>2 min read</span>
+</div>
+</a>
+</div>
+</article>
+</div>
+<div class="m-recommended-slider__item glide__slide">
+<article class="m-article-card  post tag-computer-science">
+<div class="m-article-card__picture">
+<a href="/basic-principles-to-write-good-code/" class="m-article-card__picture-link" aria-hidden="true" tabindex="-1"></a>
+<img class="m-article-card__picture-background" src="/content/images/size/w600/2020/07/A3B5A30B-C1C4-444D-BD0D-D89B6B11DFD5.jpeg" loading="lazy" alt="">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-article-card__author js-tooltip" aria-label="Pittawat Taveekitworachai" data-tippy-content="Posted by Pittawat Taveekitworachai ">
+<div style="background-image: url(/content/images/size/w100/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-article-card__info">
+<a href="https://petepittawat.dev/tag/computer-science/" class="m-article-card__tag">Computer Science</a>
+<a href="/basic-principles-to-write-good-code/" class="m-article-card__info-link" aria-label="หลักการพื้นฐานในการเขียนโค้ดที่ดีในทุกภาษา">
+<div>
+<h2 class="m-article-card__title js-article-card-title " title="หลักการพื้นฐานในการเขียนโค้ดที่ดีในทุกภาษา">
+หลักการพื้นฐานในการเขียนโค้ดที่ดีในทุกภาษา
+</h2>
+</div>
+<div class="m-article-card__timestamp">
+<span>2 years ago</span>
+<span>&bull;</span>
+<span>1 min read</span>
+</div>
+</a>
+</div>
+</article>
+</div>
+</div>
+</div>
+<div data-glide-el="controls" class="glide__arrows js-controls">
+<button data-glide-dir="<" class="m-icon-button filled in-recommended-articles glide-prev" aria-label="Previous">
+<span class="icon-arrow-left" aria-hidden="true"></span>
+</button>
+<button data-glide-dir=">" class="m-icon-button filled in-recommended-articles glide-next" aria-label="Next">
+<span class="icon-arrow-right" aria-hidden="true"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</article>
+</main>
+<div class="m-search js-search" role="dialog" aria-modal="true" aria-label="Search">
+<button class="m-icon-button outlined as-close-search js-close-search" aria-label="Close search">
+<span class="icon-close" aria-hidden="true"></span>
+</button>
+<div class="m-search__content">
+<form class="m-search__form">
+<div class="pos-relative">
+<span class="icon-search m-search-icon" aria-hidden="true"></span>
+<label for="search-input" class="sr-only">
+Type to search
+</label>
+<input id="search-input" type="text" class="m-input in-search js-input-search" placeholder="Type to search">
+</div>
+</form>
+<div class="js-search-results hide"></div>
+<p class="m-not-found align-center hide js-no-results">
+No results for your search, please try with something else.
+</p>
+</div>
+</div>
+<footer class="m-footer">
+<div class="m-footer__content">
+<nav class="m-footer-social">
+<a href="https://www.facebook.com/petepittawat.dev/" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+<a href="https://petepittawat.dev/rss" aria-label="RSS">
+<span class="icon-rss" aria-hidden="true"></span>
+</a>
+</nav>
+<p class="m-footer-copyright">
+<span>PETEPITTAWAT.DEV &copy; 2022</span>
+<span>&nbsp; &bull; &nbsp;</span>
+<span>Published with <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a></span>
+</p>
+<p class="m-footer-copyright jslicense">
+<a href="/assets/html/javascript.html?v=0787077eaf" rel="jslicense">JavaScript license information</a>
+</p>
+<a href="https://webring.wonderful.software#petepittawat.dev" title="วงแหวนเว็บ">
+<img alt="วงแหวนเว็บ" width="32" height="32" src="https://webring.wonderful.software/webring.svg" />
+</a>
+</div>
+</footer>
+<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CPromise%2CArray.prototype.includes%2CString.prototype.endsWith%2CString.prototype.startsWith%2CObject.assign%2CNodeList.prototype.forEach" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script defer src="/assets/js/manifest.js?v=0787077eaf" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script defer src="/assets/js/vendor/content-api.min.js?v=0787077eaf" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script defer src="/assets/js/vendor.js?v=0787077eaf" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script defer src="/assets/js/app.js?v=0787077eaf" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script defer src="/assets/js/post.js?v=0787077eaf" type="6cd6d26a5558f18a5a538f41-text/javascript"></script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="6cd6d26a5558f18a5a538f41-|49" defer=""></script></body>
+</html>

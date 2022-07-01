@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Flask: จัดการกับ Form ให้ง่ายขึ้นด้วย Flask WTForm</title>
+<meta name="HandheldFriendly" content="True" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" href="/assets/css/app.css?v=0787077eaf" as="style" />
+<link rel="preload" href="/assets/js/manifest.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/vendor/content-api.min.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/vendor.js?v=0787077eaf" as="script" />
+<link rel="preload" href="/assets/js/app.js?v=0787077eaf" as="script" />
+<link rel="preconnect" href="https://polyfill.io">
+<link rel="dns-prefetch" href="https://polyfill.io">
+<link rel="preload" href="/assets/css/post.css?v=0787077eaf" as="style" />
+<link rel="preload" href="/assets/js/post.js?v=0787077eaf" as="script" />
+<style>
+      /* These font-faces are here to make fonts work if the Ghost instance is installed in a subdirectory */
+
+      /* source-sans-pro-regular */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('SourceSansPro-Regular'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-regular.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-regular.woff?v=0787077eaf") format('woff');
+      }
+
+      /* source-sans-pro-600 */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: local('SourceSansPro-SemiBold'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-600.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-600.woff?v=0787077eaf") format('woff');
+      }
+
+      /* source-sans-pro-700 */
+      @font-face {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: local('SourceSansPro-Bold'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-700.woff2?v=0787077eaf") format('woff2'),
+            url("/assets/fonts/source-sans-pro/latin/source-sans-pro-700.woff?v=0787077eaf") format('woff');
+      }
+
+      /* iconmoon */
+      @font-face {
+        font-family: 'icomoon';
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+        src: url("/assets/fonts/icomoon/icomoon.eot?101fc3?v=0787077eaf");
+        src: url("/assets/fonts/icomoon/icomoon.eot?101fc3?v=0787077eaf#iefix") format('embedded-opentype'),
+        url("/assets/fonts/icomoon/icomoon.ttf?101fc3?v=0787077eaf") format('truetype'),
+        url("/assets/fonts/icomoon/icomoon.woff?101fc3?v=0787077eaf") format('woff'),
+        url("/assets/fonts/icomoon/icomoon.svg?101fc3?v=0787077eaf#icomoon") format('svg');
+      }
+    </style>
+<link rel="stylesheet" type="text/css" href="/assets/css/app.css?v=0787077eaf" media="screen" />
+<link rel="stylesheet" type="text/css" href="/assets/css/post.css?v=0787077eaf" media="screen" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<link rel="canonical" href="https://petepittawat.dev/python-flask-wtform/" />
+<meta name="referrer" content="no-referrer-when-downgrade" />
+<link rel="amphtml" href="https://petepittawat.dev/python-flask-wtform/amp/" />
+<meta property="og:site_name" content="PETEPITTAWAT.DEV" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Flask: จัดการกับ Form ให้ง่ายขึ้นด้วย Flask WTForm" />
+<meta property="og:description" content="หากใครที่ได้เริ่มต้นใช้ Flask [https://flask.palletsprojects.com/en/1.1.x/] 
+ร่วมกับ Jinja [https://jinja.palletsprojects.com] ซึ่งเป็น Template Engine
+และต้องจัดการกับ Form คงคุ้นเคยกับ request.form.get(&quot;name&quot;) 
+อะไรประมาณนี้กันเป็นอย่างดี เพื่อเข้าถึงข้อมูลที" />
+<meta property="og:url" content="https://petepittawat.dev/python-flask-wtform/" />
+<meta property="og:image" content="https://petepittawat.dev/content/images/2021/01/PetePittawatDevFullTemplate.001.jpeg" />
+<meta property="article:published_time" content="2021-01-23T13:35:16.000Z" />
+<meta property="article:modified_time" content="2021-02-13T14:29:25.000Z" />
+<meta property="article:tag" content="Python" />
+<meta property="article:publisher" content="https://www.facebook.com/petepittawat.dev/" />
+<meta property="article:author" content="https://www.facebook.com/petepittawat.dev/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Flask: จัดการกับ Form ให้ง่ายขึ้นด้วย Flask WTForm" />
+<meta name="twitter:description" content="หากใครที่ได้เริ่มต้นใช้ Flask [https://flask.palletsprojects.com/en/1.1.x/] 
+ร่วมกับ Jinja [https://jinja.palletsprojects.com] ซึ่งเป็น Template Engine
+และต้องจัดการกับ Form คงคุ้นเคยกับ request.form.get(&quot;name&quot;) 
+อะไรประมาณนี้กันเป็นอย่างดี เพื่อเข้าถึงข้อมูลที" />
+<meta name="twitter:url" content="https://petepittawat.dev/python-flask-wtform/" />
+<meta name="twitter:image" content="https://petepittawat.dev/content/images/2021/01/PetePittawatDevFullTemplate.001.jpeg" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Pittawat Taveekitworachai" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="Python" />
+<meta property="og:image:width" content="1920" />
+<meta property="og:image:height" content="1080" />
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "PETEPITTAWAT.DEV",
+        "url": "https://petepittawat.dev/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Pittawat Taveekitworachai",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://petepittawat.dev/content/images/2020/05/38406520_1997472006995151_732443772536750080_o.jpg",
+            "width": 1163,
+            "height": 1163
+        },
+        "url": "https://petepittawat.dev/author/pittawat/",
+        "sameAs": [
+            "https://www.facebook.com/petepittawat.dev/"
+        ]
+    },
+    "headline": "Flask: จัดการกับ Form ให้ง่ายขึ้นด้วย Flask WTForm",
+    "url": "https://petepittawat.dev/python-flask-wtform/",
+    "datePublished": "2021-01-23T13:35:16.000Z",
+    "dateModified": "2021-02-13T14:29:25.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://petepittawat.dev/content/images/2021/01/PetePittawatDevFullTemplate.001.jpeg",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "Python",
+    "description": "หากใครที่ได้เริ่มต้นใช้ Flask [https://flask.palletsprojects.com/en/1.1.x/] \nร่วมกับ Jinja [https://jinja.palletsprojects.com] ซึ่งเป็น Template Engine\nและต้องจัดการกับ Form คงคุ้นเคยกับ request.form.get(&quot;name&quot;) \nอะไรประมาณนี้กันเป็นอย่างดี เพื่อเข้าถึงข้อมูลที่ส่งมาจาก Front-end แน่นอว่า\nเมื่อได้รับข้อมูลมาแล้วเราจะต้องมีการ Validate\nหรือยืนยันว่าข้อมูลเป็นไปตามรูปแบบที่กำหนดไว้หรือไม่อีกครั้ง\nก่อนนำข้อมูลไปจัดการต่อ หากเขียนเป็นขั้นตอนคร่าว ๆ เราจะได้ว่า\n\n1. สร้าง Form ในฝั่ง Front-end เช่น\n\n&lt;",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://petepittawat.dev/"
+    }
+}
+    </script>
+<meta name="generator" content="Ghost 5.0" />
+<link rel="alternate" type="application/rss+xml" title="PETEPITTAWAT.DEV" href="https://petepittawat.dev/rss/" />
+<script defer src="/public/cards.min.js?v=0787077eaf" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=0787077eaf">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+<style>
+  pre[class*="language-"] {
+    margin: 0 0 1.5em !important;
+  }
+  code {
+    text-shadow: none !important;
+  }
+  .token.operator {
+    background: none !important;
+  }
+  :not(pre) > code[class*="language-"],
+  pre[class*="language-"] {
+    background: #20262E !important;
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70874868-4" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script type="1ffbc8b6677d149ad26287a2-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70874868-4');
+</script>
+<script data-ad-client="ca-pub-8039993497715876" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script type="1ffbc8b6677d149ad26287a2-text/javascript" defer>
+    window.addEventListener('DOMContentLoaded', (_) => {      
+        document.querySelectorAll('pre[class*=language-]').forEach(function(node) {
+            node.classList.add('line-numbers');
+		});
+        Prism.highlightAll();
+    });
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous" onload="renderMathInElement(document.body);" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script type="1ffbc8b6677d149ad26287a2-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js" defer></script>
+<script type="1ffbc8b6677d149ad26287a2-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-dart.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-python.min.js" defer integrity="sha512-wK9tQmDrstGtZqTKcyVf3h457QGMlNriKs+fHmEkiCizrq0LVovfT3v1smeT1DlQetHhdRkkX1JSuZg5LoNHJg==" crossorigin="anonymous" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-django.min.js" defer integrity="sha512-zceTbktmadDMVN0NdIOgrT6pCS6ru9qBGn6SQBs/da9HDcCIvieqGmss8FmaKRWGapZdzFAiBX1Ju8ZHbnpPmg==" crossorigin="anonymous" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-css.min.js" defer integrity="sha512-1qYok2x2Rsm2y+mrdyrp00iH7xYSgVyIQ1egDAoT7CBZ3kSzlaJK+NhWAh746NeL3gnH6dnP8FGS+3xOdwO7ig==" crossorigin="anonymous" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-css-extras.min.js" defer integrity="sha512-JEJN8jMnX+Ryl2SPlM18/6TwaH5FnN+Mvasfnh3E7awC/JAVpuWOvc5rSMqCD7MM22x5PxQgRUr5h8G2zHceMQ==" crossorigin="anonymous" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-javascript.min.js" defer integrity="sha512-I4ZWqUpk7wqHcm7Gkv7k4IdgrDUTlGm1a7xeqyduqZLWeoGOn2E9us4XNBEDGclpk+6d1CmqIHYwmoyyL59zeA==" crossorigin="anonymous" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script type="1ffbc8b6677d149ad26287a2-text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/line-numbers/prism-line-numbers.min.js" defer></script><style>:root {--ghost-accent-color: #15171A;}</style>
+<style>
+      :root {
+        --primary-subtle-color: var(--ghost-accent-color) !important;
+      }
+    </style>
+<script type="1ffbc8b6677d149ad26287a2-text/javascript">
+      // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+      const ghostHost = "https://petepittawat.dev"
+      // @license-end
+    </script>
+<script type="1ffbc8b6677d149ad26287a2-text/javascript">
+        const ghostSearchApiKey = "7c4c6f38cf1355e3f95df27069"
+      </script>
+</head>
+<body class="post-template tag-python">
+<header class="m-header with-picture js-header">
+<div class="m-mobile-topbar" data-aos="fade-down">
+<button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
+<span class="icon-menu" aria-hidden="true"></span>
+</button>
+<a href="https://petepittawat.dev" class="m-logo in-mobile-topbar">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-light">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-dark.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-dark">
+</a>
+<button class="m-icon-button in-mobile-topbar js-open-search" aria-label="Open search">
+<span class="icon-search" aria-hidden="true"></span>
+</button>
+</div>
+<div class="m-menu js-menu">
+<button class="m-icon-button outlined as-close-menu js-close-menu" aria-label="Close menu">
+<span class="icon-close"></span>
+</button>
+<div class="m-menu__main" data-aos="fade-down">
+<div class="l-wrapper">
+<div class="m-nav js-main-nav">
+<nav class="m-nav__left js-main-nav-left" role="navigation" aria-label="Main menu">
+<ul>
+<li class="only-desktop">
+<a href="https://petepittawat.dev" class="m-logo">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-light.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-light">
+<img src="https://petepittawat.dev/content/images/2022/01/PetePittawatLogo-dark.png" alt="PETEPITTAWAT.DEV" class="m-logo__image-dark">
+</a>
+</li>
+<li class="nav-home">
+<a href="https://petepittawat.dev/">Home</a>
+</li>
+<li class="nav-computer-science">
+<a href="https://petepittawat.dev/tag/computer-science/">Computer Science</a>
+</li>
+<li class="nav-dart">
+<a href="https://petepittawat.dev/tag/dart/">Dart</a>
+</li>
+<li class="nav-flutter">
+<a href="https://petepittawat.dev/tag/flutter/">Flutter</a>
+</li>
+<li class="nav-python">
+<a href="https://petepittawat.dev/tag/python/">Python</a>
+</li>
+<li class="nav-web">
+<a href="https://petepittawat.dev/tag/web/">Web</a>
+</li>
+<li class="nav-review">
+<a href="https://petepittawat.dev/tag/review/">Review</a>
+</li>
+<li class="nav-about">
+<a href="https://petepittawat.dev/about/">About</a>
+</li>
+<li class="submenu-option js-submenu-option">
+<button class="m-icon-button in-menu-main more js-toggle-submenu" aria-label="Open submenu">
+<span class="icon-more" aria-hidden="true"></span>
+</button>
+<div class="m-submenu js-submenu">
+<div class="l-wrapper in-submenu">
+<section class="m-recent-articles">
+<h3 class="m-submenu-title in-recent-articles">Recent articles</h3>
+<div class="glide js-recent-slider">
+<div class="glide__track" data-glide-el="track">
+<div class="glide__slides">
+<div class="glide__slide">
+<a href="/wisdom/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/07/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="ปัญญา">
+ปัญญา
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/future-of-flutter-may-2021/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/05/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="Flutter: วิเคราะห์อนาคตของ Flutter 2.2+">
+Flutter: วิเคราะห์อนาคตของ Flutter 2.2+
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/js-event-bubbling-capture/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/03/PetePittawatDevFullTemplate.001.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="JS: Event Bubbling and Capture">
+JS: Event Bubbling and Capture
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+<div class="glide__slide">
+<a href="/flutter-engage-2021-prediction/" class="m-recent-article">
+<div class="m-recent-article__picture ">
+<img src="/content/images/size/w300/2021/02/PetePittawatDevFullTemplate.001-1.jpeg" loading="lazy" alt="">
+</div>
+<h3 class="m-recent-article__title js-recent-article-title" title="คาดการณ์ Flutter Engage 2021">
+คาดการณ์ Flutter Engage 2021
+</h3>
+<span class="m-recent-article__date">a year ago</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="m-tags">
+<h3 class="m-submenu-title">Tags</h3>
+<ul>
+ <li>
+<a href="/tag/ai/">AI</a>
+</li>
+<li>
+<a href="/tag/books/">Books</a>
+</li>
+<li>
+<a href="/tag/computer-science/">Computer Science</a>
+</li>
+<li>
+<a href="/tag/dart/">Dart</a>
+</li>
+<li>
+<a href="/tag/data-science/">Data Science</a>
+</li>
+<li>
+<a href="/tag/flutter/">Flutter</a>
+</li>
+<li>
+<a href="/tag/general/">General</a>
+</li>
+<li>
+<a href="/tag/html/">HTML</a>
+</li>
+<li>
+<a href="/tag/javascript/">JavaScript</a>
+</li>
+<li>
+<a href="/tag/movie/">Movie</a>
+</li>
+</ul>
+</section>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+<div class="m-nav__right">
+<button class="m-icon-button in-menu-main js-open-search" aria-label="Open search">
+<span class="icon-search" aria-hidden="true"></span>
+</button>
+<div class="m-toggle-darkmode js-tooltip" data-tippy-content="Toggle dark mode" tabindex="0">
+<label for="toggle-darkmode" class="sr-only">
+Toggle dark mode
+</label>
+<input id="toggle-darkmode" type="checkbox" class="js-toggle-darkmode">
+<div>
+<span class="icon-moon moon" aria-hidden="true"></span>
+<span class="icon-sunny sun" aria-hidden="true"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="main-wrap">
+<section class="m-hero with-picture" data-aos="fade">
+<div class="m-hero__picture in-post">
+<img srcset="
+          /content/images/size/w300/2021/01/PetePittawatDevFullTemplate.001.jpeg 300w,
+          /content/images/size/w600/2021/01/PetePittawatDevFullTemplate.001.jpeg 600w,
+          /content/images/size/w1000/2021/01/PetePittawatDevFullTemplate.001.jpeg 1000w,
+          /content/images/size/w2000/2021/01/PetePittawatDevFullTemplate.001.jpeg 2000w
+        " sizes="(max-width: 600px) 600px, (max-width: 1000px) 1000px, 2000px" src="/content/images/size/w1000/2021/01/PetePittawatDevFullTemplate.001.jpeg" alt="" />
+</div>
+</section>
+<article>
+<div class="l-content in-post">
+<div class="l-wrapper in-post  js-aos-wrapper" data-aos="fade-up" data-aos-delay="300">
+<div class="l-post-content js-progress-content">
+<header class="m-heading">
+<h1 class="m-heading__title in-post">Flask: จัดการกับ Form ให้ง่ายขึ้นด้วย Flask WTForm</h1>
+<div class="m-heading__meta">
+<a href="https://petepittawat.dev/tag/python/" class="m-heading__meta__tag">Python</a>
+<span class="m-heading__meta__divider" aria-hidden="true">&bull;</span>
+<span class="m-heading__meta__time">Jan 23, 2021</span>
+</div>
+</header>
+<div class="pos-relative js-post-content">
+<div class="m-share">
+<div class="m-share__content js-sticky">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://petepittawat.dev/python-flask-wtform/" class="m-icon-button filled in-share" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+<a href="https://twitter.com/intent/tweet?text=Flask%3A%20%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%B1%E0%B8%9A%20Form%20%E0%B9%83%E0%B8%AB%E0%B9%89%E0%B8%87%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2%20Flask%20WTForm&url=https://petepittawat.dev/python-flask-wtform/" class="m-icon-button filled in-share" target="_blank" rel="noopener" aria-label="Twitter">
+<span class="icon-twitter" aria-hidden="true"></span>
+</a>
+<button class="m-icon-button filled in-share progress js-scrolltop" aria-label="Scroll to top">
+<span class="icon-arrow-top" aria-hidden="true"></span>
+<svg aria-hidden="true">
+<circle class="progress-ring__circle js-progress" fill="transparent" r="0" />
+</svg>
+</button>
+</div>
+</div>
+<p>หากใครที่ได้เริ่มต้นใช้ <a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a> ร่วมกับ <a href="https://jinja.palletsprojects.com">Jinja</a> ซึ่งเป็น Template Engine และต้องจัดการกับ Form คงคุ้นเคยกับ <code>request.form.get("name")</code> อะไรประมาณนี้กันเป็นอย่างดี เพื่อเข้าถึงข้อมูลที่ส่งมาจาก Front-end แน่นอว่า เมื่อได้รับข้อมูลมาแล้วเราจะต้องมีการ Validate หรือยืนยันว่าข้อมูลเป็นไปตามรูปแบบที่กำหนดไว้หรือไม่อีกครั้ง ก่อนนำข้อมูลไปจัดการต่อ หากเขียนเป็นขั้นตอนคร่าว ๆ เราจะได้ว่า</p><p>1. สร้าง Form ในฝั่ง Front-end เช่น</p><figure class="kg-card kg-code-card"><pre><code class="language-jinja2">&lt;!-- ... --&gt;
+&lt;form action="{{ url_for('parks') }}" method="POST"&gt;
+	&lt;label for="name"&gt;Your name&lt;/label&gt;
+	&lt;input name="name" type="text"&gt;
+&lt;/form&gt;
+&lt;!-- ... --&gt;</code></pre><figcaption>parks.html</figcaption></figure><p>2. สร้าง Endpoint ใน Flask</p><figure class="kg-card kg-code-card"><pre><code class="language-python"># ...
+@app.route("/parks", methods=["GET", "POST"])
+def parks():
+	if request.method == "POST":
+    	name = request.form.get("name")
+    	# Process data
+# ...</code></pre><figcaption>main.py</figcaption></figure><p>แต่จะเห็นได้ว่าในการสร้าง Endpoint นั้นเรามักจะต้องทำ Pattern ซ้ำ ๆ คือการ Validate ข้อมูลก่อนนำไปใช้ต่อ และอีกสิ่งหนึ่งที่มักนำไปสู่ Error ก็คือการใช้ String ที่เป็นชื่อในการดึงข้อมูลออกมา จะดีกว่ามั้ยถ้าเราสามารถทำสิ่งต่าง ๆ เหล่านี้ให้ดีขึ้นได้ (แอบบอกไว้ตรงนี้เลยว่า ท้ายบทความเรามีโบนัสเล็ก ๆ สำหรับคนที่ใช้ Bootstrap คู่กับ Flask อีกด้วย</p><hr><h2 id="flask-wtform">Flask WTForm</h2><p>ปฏิเสธไม่ได้ว่า Form เป็นหนึ่งในเรื่องปวดหัว และ Pain มาก ๆในการเขียนโปรแกรม ไม่ว่าจะเป็นการทำอะไรซ้ำไปซ้ำมา เพื่อดึงข้อมูล ความเยอะของ Form ไหนจะต้องจัดการเรื่องของ Validation อีก นั่นทำให้เราเห็นได้ว่าในหลาย ๆ Programming Language/Frameworks/Libraries มักจะนำเสนอ Solution ต่าง ๆ ไม่ว่าจะโดย Owner เองหรือว่า Community ออกมา</p><p>ใน Flask เองก็เช่นกัน เรามี <a href="https://flask-wtf.readthedocs.io/en/stable/">Flask WTForm</a> ที่จะช่วยให้การจัดการกับ Form ทำได้ง่ายยิ่งขึ้น ด้วยการสร้าง Class ขึ้นมารวมข้อมูลที่เกี่ยวข้องไว้ด้วยกัน รวมถึงการที่มาพร้อมกับ Built-in Validators ที่ทำให้เราเรียกใช้ได้ง่ายอีกด้วย</p><p>ขั้นตอนแรกก็คือการ Install เข้าไปใน Project ของเราก่อนด้วย</p><pre><code class="language-bash">$ pip install Flask-WTF</code></pre><p>จากนั้นจึง Import เข้ามาในโปรเจค</p><figure class="kg-card kg-code-card"><pre><code class="language-python">from flask_wtf import FlaskForm # 1.
+from wtforms import StringField # 2.
+from wtforms.validators import DataRequired # 3.</code></pre><figcaption>main.py</figcaption></figure><ol><li>โดยบรรทัดแรกเราทำการ Import <code>FlaskForm</code> ซึ่งจะต้องเป็น Base Class สำหรับ Extend เพื่อให้ Class ของ Form ที่เรากำลังจะสร้างขึ้นได้ความสามารถต่าง ๆ มา</li><li>บรรทัดที่ 2 เป็นการ Import ประเภทของ Input Field เข้ามา ซึ่งมีด้วยกันหลากหลายประเภท ดูเพิ่มเติมได้ที่ <a href="https://wtforms.readthedocs.io/en/2.3.x/fields/">Fields</a></li><li>บรรทัดที่ 3 เป็นการ Import Validators ที่ Built-in มากับ WTForm สามารถดูเพิ่มเติมได้ที่ <a href="https://wtforms.readthedocs.io/en/2.3.x/validators/#built-in-validators">Validators</a></li></ol><p>หลังจากที่ Import เรียบร้อยแล้วเราต้องทำการตั้ง <code>secrey_key</code> ให้กับ Flask Application ของเรา เนื่องจาก Flask WTF นั้นมี Built-in สำหรับจัดการ CSRF Token มาให้ด้วย เพื่อให้เราสามารถสร้าง Form ที่ปลอดภัยได้มากยิ่งขึ้น</p><pre><code class="language-python">app = Flask(__name__)
+app.secret_key = "your-secret-key-should-not-be-here"</code></pre><p>ขั้นต่อไป ทุก ๆ ครั้งที่เราต้องการสร้าง Form ขึ้นมา เราจะทำการสร้าง Class สำหรับ Form นั้น ๆ</p><figure class="kg-card kg-code-card"><pre><code class="language-python">class SimpleForm(FlaskForm): # 1.
+	name = StringField(label="Your name", validators=[DataRequired()] # 2.
+ </code></pre><figcaption>main.py</figcaption></figure><ol><li>สำหรับ Class ที่ต้องการจะประกาศว่าเป็น Class สำหรับการจัดการข้อมูลที่เกี่ยวกับ Form นั้น ๆ จะต้องมีการ Extends <code>FlaskForm</code> เสมอ</li><li>ในที่นี้ คือการสร้าง Input Field เก็บไว้ในตัวแปร <code>name</code> ซึ่งจะถูกใช้สำหรับเข้าถึงข้อมูลต่อไป โดย <code>name</code> เป็นประเภท <code>StringField</code> ซึ่งเป็น Field สำหรับข้อความ มีการระบุ Label ว่า <code>"Your name"</code> ซึ่งจะถูกนำไปใช้ใน <code>&lt;label&gt;&lt;/label&gt;</code> และมีการเพิ่ม Validators โดยที่ตำแหน่งที่ 0 เป็น <code>DataRequired()</code> หมายถึงว่า Field นี้จะต้องมีข้อมูลกลับมาด้วยเสมอ</li></ol><p>หลังจากที่เราสร้าง Class สำหรับ Form ของเราเรียบร้อยแล้ว ขั้นถัดไปคือการส่ง Form นี้ไปให้ Front-end แสดงผล และจัดการกับข้อมูลที่ได้รับกลับมา โดยเราอาจเขียน Endpoint ของเราได้แบบนี้ ข้อสังเกตเล็กน้อยคือ Endpoint ที่เราสร้างขึ้นมานั้นจำเป็นต้องรองรับ Methods POST สำหรับการส่งค่า Form กลับมา</p><figure class="kg-card kg-code-card"><pre><code class="language-python">@app.route("/parks", methods=["GET", "POST"])
+def parks():
+	simple_form = SimpleForm()
+    
+    # ...
+    
+    return render_template("parks.html", form=simple_form)</code></pre><figcaption>main.py</figcaption></figure><p>และในฝั่งของ Jinja สามารถ Access เข้า Form เพื่อนำมาแสดงผลได้ดังนี้ โดยตั้ง <code>novalidate</code> ไว้เพื่อให้เห็นการทำงานของ Flask WTForm ได้ชัดเจนยิ่งขึ้น</p><figure class="kg-card kg-code-card"><pre><code class="language-jinja2">&lt;!-- ... --&gt;
+&lt;form action="{{ url_for('parks') }}" method="POST" novalidate&gt;
+	{{ form.csrf_token }}
+	{{ form.name.label }} {{ form.name(size=20) }}
+    &lt;input type="submit"&gt;
+&lt;/form&gt;
+&lt;!-- ... --&gt;</code></pre><figcaption>parks.html</figcaption></figure><p>โดยจะได้หน้าตาของ Form เป็นแบบนี้</p><figure class="kg-card kg-image-card"><img src="https://petepittawat.dev/content/images/2021/01/image-3.png" class="kg-image" alt loading="lazy" width="614" height="82" srcset="https://petepittawat.dev/content/images/size/w600/2021/01/image-3.png 600w, https://petepittawat.dev/content/images/2021/01/image-3.png 614w"></figure><p>ขั้นถัดไปเราจะนำข้อมูลออกมาใช้ โดยใน Function <code>parks()</code> เราสามารถจัดการกับ Form ได้ผ่าน <code>simple_form</code> ที่เราสร้างขึ้นมา</p><pre><code class="language-python">@app.route("/parks", methods=["GET", "POST"])
+def parks():
+    simple_form = SimpleForm()
+    
+    # -- ADD --
+
+    if simple_form.validate_on_submit():
+        name = simple_form.name.data
+        print(name)
+        # Do something with name
+        return redirect(url_for('home'))
+    else:
+        print("Name is required")
+        # OR send some error message to front-end
+        
+    # -- -- --
+
+    return render_template("parks.html", form=simple_form)</code></pre><p>จะทำให้เราได้ผลลัพธ์ดังนี้</p><figure class="kg-card kg-image-card"><img src="https://petepittawat.dev/content/images/2021/01/image-4.png" class="kg-image" alt loading="lazy" width="610" height="88" srcset="https://petepittawat.dev/content/images/size/w600/2021/01/image-4.png 600w, https://petepittawat.dev/content/images/2021/01/image-4.png 610w"></figure><figure class="kg-card kg-image-card"><img src="https://petepittawat.dev/content/images/2021/01/image-6.png" class="kg-image" alt loading="lazy" width="260" height="56"></figure><p>และถ้าหากส่งค่าว่างมาจะได้ผลลัพธ์ว่า</p><figure class="kg-card kg-image-card"><img src="https://petepittawat.dev/content/images/2021/01/image-7.png" class="kg-image" alt loading="lazy" width="364" height="62"></figure><p>สามารถดูตัวอย่างโค้ดแบบเต็ม ๆ ได้ที่ <a href="https://github.com/Pittawat2542/python-flask-wtform">GitHub</a></p><hr><h2 id="bonus-flask-bootstrap">Bonus! สำหรับผู้ที่ใช้ Flask Bootstrap</h2><p>สำหรับใครที่ใช้ Bootstrap ในโปรเจคคู่ไปกับ Flask ก็คงมีโอกาสได้ใช้งาน <a href="https://pythonhosted.org/Flask-Bootstrap/">Flask-Bootstrap</a> ซึ่งต้องบอกว่าเจ้า Package ตัวนี้เกิดมาคู่กับ Flask WTForm จริง ๆ แน่นอว่าถึงเราจะมี Class ที่ Inherit มาจาก FlaskForm มาช่วยเราแล้ว แต่ชีวิตเองก็ไม่ได้ง่ายดายไปซะทั้งหมด เพราะว่า Front-end เรายังคงต้องสร้าง Input ขึ้นมาเองแบบซ้ำ ๆ หรือเราอาจจะเลี่ยงไปใช้ Loop ก็ทำให้โค้ดเราซับซ้อนขึ้นโดยไม่จำเป็น</p><p>โดยในไฟล์ Jinja Template <code>parks.html</code> ของเราสามารถที่จะสั่ง Import เพิ่มเติม</p><figure class="kg-card kg-code-card"><pre><code class="language-jinja2">{% import 'bootstrap/wtf.html' as wtf %}</code></pre><figcaption>parks.html</figcaption></figure><p>และเราสามารถแทนที่โค้ดในส่วนนี้</p><pre><code class="language-jinja2">&lt;form action="{{ url_for('parks') }}" method="POST" novalidate&gt;
+	{{ form.csrf_token }}
+	{{ form.name.label }} {{ form.name(size=20) }}
+    &lt;input type="submit"&gt;
+&lt;/form&gt;</code></pre><p>ด้วย</p><pre><code class="language-jinja2">{{ wtf.quick_form(form) }}</code></pre><p>ซึ่งข้อแนะนำเพิ่มเติมคือพอเป็นแบบนี้แล้วปุ่ม Submit ของเราจะหายไป เราสามารถแก้ไขได้ด้วยการใช้ <code>SubmitField</code> เริ่มจากการ Import เข้ามาเพิ่มเติม</p><pre><code class="language-python">from wtforms import StringField, SubmitField</code></pre><p>และเพิ่มให้กับ Class <code>SimpleForm</code> ของเรา</p><pre><code class="language-python">class SimpleForm(FlaskForm):
+	name = StringField(label="Your name", validators=[DataRequired()]
+    submit = SubmitField(label="Submit")</code></pre><p>ก็จะทำให้เราได้ปุ่ม Submit ของเรากลับมา</p><figure class="kg-card kg-image-card"><img src="https://petepittawat.dev/content/images/2021/01/image-8.png" class="kg-image" alt loading="lazy" width="2000" height="215" srcset="https://petepittawat.dev/content/images/size/w600/2021/01/image-8.png 600w, https://petepittawat.dev/content/images/size/w1000/2021/01/image-8.png 1000w, https://petepittawat.dev/content/images/size/w1600/2021/01/image-8.png 1600w, https://petepittawat.dev/content/images/size/w2400/2021/01/image-8.png 2400w" sizes="(min-width: 720px) 720px"></figure><p>สามารถดูโค้ดแบบเต็ม ๆ ได้ที่ <a href="https://github.com/Pittawat2542/python-flask-wtform/tree/bootstrap">GitHub</a></p><hr><h2 id="-hope-you-enjoy-reading-"><strong><em><em><em><em><em><em><em><em>📚 Hope you enjoy reading! 📚</em></em></em></em></em></em></em></em></strong></h2><hr>
+<section class="m-tags in-post">
+<h3 class="m-submenu-title">Tags</h3>
+<ul>
+<li>
+<a href="/tag/python/" title="Python">Python</a>
+</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<section class="m-author">
+<div class="m-author__content">
+<div class="m-author__picture">
+<a href="https://petepittawat.dev/author/pittawat/" class="m-author-picture" aria-label="Pittawat Taveekitworachai">
+<div style="background-image: url(https://petepittawat.dev/content/images/2020/05/38406520_1997472006995151_732443772536750080_o.jpg);"></div>
+</a>
+</div>
+<div class="m-author__info">
+<h4 class="m-author__name">
+<a href="https://petepittawat.dev/author/pittawat/">Pittawat Taveekitworachai</a>
+</h4>
+<p class="m-author__bio">A CS student who passionate about web and mobile technology with the belief that technology can enhance people&#x27;s life.</p>
+<ul class="m-author-links">
+<li>
+<a href="https://facebook.com/petepittawat.dev/" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="m-recommended">
+<div class="l-wrapper in-recommended">
+<h3 class="m-section-title in-recommended">Recommended for you</h3>
+<div class="m-recommended-articles">
+<div class="m-recommended-slider glide js-recommended-slider">
+<div class="glide__track" data-glide-el="track">
+<div class="glide__slides">
+<div class="m-recommended-slider__item glide__slide">
+<div class="m-heading no-margin">
+<h3>No posts found</h3>
+<p>
+Apparently there are no posts at the moment, check again later.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div data-glide-el="controls" class="glide__arrows js-controls">
+<button data-glide-dir="<" class="m-icon-button filled in-recommended-articles glide-prev" aria-label="Previous">
+<span class="icon-arrow-left" aria-hidden="true"></span>
+</button>
+<button data-glide-dir=">" class="m-icon-button filled in-recommended-articles glide-next" aria-label="Next">
+<span class="icon-arrow-right" aria-hidden="true"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</article>
+</main>
+<div class="m-search js-search" role="dialog" aria-modal="true" aria-label="Search">
+<button class="m-icon-button outlined as-close-search js-close-search" aria-label="Close search">
+<span class="icon-close" aria-hidden="true"></span>
+</button>
+<div class="m-search__content">
+<form class="m-search__form">
+<div class="pos-relative">
+<span class="icon-search m-search-icon" aria-hidden="true"></span>
+<label for="search-input" class="sr-only">
+Type to search
+</label>
+<input id="search-input" type="text" class="m-input in-search js-input-search" placeholder="Type to search">
+</div>
+</form>
+<div class="js-search-results hide"></div>
+<p class="m-not-found align-center hide js-no-results">
+No results for your search, please try with something else.
+</p>
+</div>
+</div>
+<footer class="m-footer">
+<div class="m-footer__content">
+<nav class="m-footer-social">
+<a href="https://www.facebook.com/petepittawat.dev/" target="_blank" rel="noopener" aria-label="Facebook">
+<span class="icon-facebook" aria-hidden="true"></span>
+</a>
+<a href="https://petepittawat.dev/rss" aria-label="RSS">
+<span class="icon-rss" aria-hidden="true"></span>
+</a>
+</nav>
+<p class="m-footer-copyright">
+<span>PETEPITTAWAT.DEV &copy; 2022</span>
+<span>&nbsp; &bull; &nbsp;</span>
+<span>Published with <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a></span>
+</p>
+<p class="m-footer-copyright jslicense">
+<a href="/assets/html/javascript.html?v=0787077eaf" rel="jslicense">JavaScript license information</a>
+</p>
+<a href="https://webring.wonderful.software#petepittawat.dev" title="วงแหวนเว็บ">
+<img alt="วงแหวนเว็บ" width="32" height="32" src="https://webring.wonderful.software/webring.svg" />
+</a>
+</div>
+</footer>
+<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CPromise%2CArray.prototype.includes%2CString.prototype.endsWith%2CString.prototype.startsWith%2CObject.assign%2CNodeList.prototype.forEach" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script defer src="/assets/js/manifest.js?v=0787077eaf" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script defer src="/assets/js/vendor/content-api.min.js?v=0787077eaf" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script defer src="/assets/js/vendor.js?v=0787077eaf" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script defer src="/assets/js/app.js?v=0787077eaf" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script defer src="/assets/js/post.js?v=0787077eaf" type="1ffbc8b6677d149ad26287a2-text/javascript"></script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1ffbc8b6677d149ad26287a2-|49" defer=""></script></body>
+</html>
